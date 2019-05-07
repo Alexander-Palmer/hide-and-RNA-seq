@@ -1,5 +1,5 @@
 # hide-and-RNA-seq
-Small RNA-sequencing experiments\\
+*Small RNA-sequencing experiments*\
 Zuryn Lab\
 Queensland Brain Institute, Australia 
 
