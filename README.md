@@ -1,5 +1,5 @@
 # hide-and-RNA-seq
-Small RNA-sequencing experiments\
+Argonaute and tissue-specific pulldown of miRNAs\
 *Zuryn Lab*\
 *Queensland Brain Institute, Australia* 
 
