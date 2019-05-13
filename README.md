@@ -2,7 +2,7 @@
 A collection of _R_ and _Bash_ codes used for the analysis of _miRNAs_ and _isomiRs_ extracted from various RNA-sequencing experiments
 \
 \
-Contains code relating to:\
+Contains scripts relating to:\
     - *heatmaps*\
     - *volcano plots*\
     - *venn diagrams*\
