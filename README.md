@@ -3,13 +3,13 @@ A collection of _R_ and _Bash_ codes used for the analysis of _miRNAs_ and _isom
 \
 \
 Contains code relating to:\
-    - heatmaps\
-    - volcano plots\
-    - venn diagrams\
-    - miRNA normalisation\
-    - isomiR analysis\
-    - SNP analysis\
-    - housekeeping miRNAs\
+    - *heatmaps*\
+    - *volcano plots*\
+    - *venn diagrams*\
+    - *miRNA normalisation*\
+    - *isomiR analysis*\
+    - *SNP analysis*\
+    - *housekeeping miRNAs*\
 \
 \
 *Alexander Palmer, Zuryn Lab\
