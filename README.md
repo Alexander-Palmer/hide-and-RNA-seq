@@ -10,6 +10,7 @@ Contains scripts relating to:\
     - *isomiR analysis*\
     - *SNP analysis*\
     - *housekeeping miRNAs*\
+    - *sequence annotation*\
 \
 \
 *Alexander Palmer, Zuryn Lab\
