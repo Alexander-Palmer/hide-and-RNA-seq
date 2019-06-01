@@ -11,6 +11,8 @@ Contains scripts relating to:\
     - *SNP analysis*\
     - *housekeeping miRNAs*\
     - *sequence annotation*\
+    - *cut-adapt and bowtie2 flowthrough*\
+    - *miRDeep2 novel miRNA prediction flowthrough*\
 \
 \
 *Alexander Palmer, Zuryn Lab\
