@@ -1,39 +1,34 @@
-z1 <- read.csv('AZ vs N2 Top.csv')
-z2 <- read.csv('EB vs N2 Top.csv')
-z3 <- read.csv('Int vs N2 Top.csv')
-z4 <- read.csv('Isp.1 vs N2 Top.csv')
-z5 <- read.csv('Mus vs N2 Top.csv')
-z6 <- read.csv('Neu vs N2 Top.csv')
-z <- zz5
-
-zz1 <- union(z1$X, z3$X)
-zz2 <- union(z4$X, z5$X)
-zz3 <- union(zz1, zz2)
-zz4 <- union(z6$X, zz3)
-zz5 <- union(y6$X, zz4)
-
-y1 <- read.csv('AZ vs Mus(inac.) Top.csv')
-y2 <- read.csv('EB vs Mus(inac.) Top.csv')
-y3 <- read.csv('Int vs Mus(inac.) Top.csv')
-y4 <- read.csv('Isp.1 vs Mus(inac.) Top.csv')
-y5 <- read.csv('Mus vs Mus(inac.) Top.csv')
-y6 <- read.csv('N2 vs Mus(inac.) Top.csv')
-y7 <- read.csv('Neu vs Mus(inac.) Top.csv')
-y <- yy6
-
-yy1 <-union(y1$X, y2$X)
-yy2 <-union(y3$X, y4$X)
-yy3 <-union(y5$X, y6$X)
-yy4 <-union(yy1, yy2)
-yy5 <-union(yy3, yy4)
-yy6 <-union(yy5, y7$X)
-
-
 library(VennDiagram)
 
-venn.plot <- venn.diagram(
-  list("N2" = z, "Mus(Inac.)" = y), fill = c("cornflowerblue", "red"), cex = 1.1, 
-  scaled=TRUE,
-  "All sig miRNA between Mus.inac and N2.tiff"
-)
+z1 <- read.csv('IntALG1 vs N2 Top - Pos.csv')
+z1 <- z1[,2]
+z1 <- as.vector(z1)
+z2 <- read.csv('IntALG2 vs N2 Top - Pos.csv')
+z2 <- z2[,2]
+z2 <- as.vector(z2)
+z3 <- read.csv('NeuALG1 vs N2 Top - Pos.csv')
+z3 <- z3[,2]
+z3 <- as.vector(z3)
+z4 <- read.csv('NeuALG2 vs N2 Top - Pos.csv')
+z4 <- z4[,2]
+z4 <- as.vector(z4)
+z5 <- read.csv('MusALG1 vs N2 Top - Pos.csv')
+z5 <- z5[,2]
+z5 <- as.vector(z5)
+z6 <- read.csv('MusALG2 vs N2 Top - Pos.csv')
+z6 <- z6[,2]
+z6 <- as.vector(z6)
 
+zz1 <- union(z1, z2)
+zz2 <- union(z3, z4)
+zz3 <- union(z5, z6)
+
+venn.plot <- venn.diagram(
+  list("Intestine" = zz1, "Neuron" = zz2, "Muscle" = zz3), 
+  fill = c("cornflowerblue", "green", "red"), "Venn.tiff", scaled=TRUE, 
+  main = "Differential isomiR loading between tissues", cex = 1.3, main.cex = 1.3) 
+       
+venn.plot <- venn.diagram(
+  list("ALG1" = z5, "ALG2" = z6), 
+  fill = c("yellow", "violet"), "Venn2.tiff", scaled=TRUE, 
+  main = "Muscle isomiRs / N2", cex = 1.3, main.cex = 1.3)
