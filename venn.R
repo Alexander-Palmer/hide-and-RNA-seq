@@ -28,7 +28,10 @@ venn.plot <- venn.diagram(
   fill = c("cornflowerblue", "green", "red"), "Venn.tiff", scaled=TRUE, 
   main = "Differential isomiR loading between tissues", cex = 1.3, main.cex = 1.3) 
        
-venn.plot <- venn.diagram(
-  list("ALG1" = z5, "ALG2" = z6), 
-  fill = c("yellow", "violet"), "Venn2.tiff", scaled=TRUE, 
-  main = "Muscle isomiRs / N2", cex = 1.3, main.cex = 1.3)
+overrideTriple=F
+
+venn.diagram <- venn.diagram(
+  list("ALG1" = z1, "ALG2" = z2), 
+  fill = c("red", "yellow"), width = 3000, height =3000, "Venn2.tiff", scaled=TRUE, 
+  main = "Distribution of intestinal miRNAs between ARGONAUTES", cex = 1.3, main.cex = 1.3,
+  cat.just=list(c(0.5,0) , c(0.5,0)), alpha = c(0.5,0.5), ext.text=FALSE)
