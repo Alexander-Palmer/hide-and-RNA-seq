@@ -1,5 +1,5 @@
 library(BiocManager)
-BiocManager::install("biomaRt)
+BiocManager::install("biomaRt")
 library(biomaRt)
 BiocManager::install("AnnotationDbi")
 library(AnnotationDbi)
