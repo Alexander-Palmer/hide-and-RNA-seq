@@ -1,7 +1,7 @@
-source("http://bioconductor.org/biocLite.R")
-biocLite("biomaRt")
+library(BiocManager)
+BiocManager::install("biomaRt)
 library(biomaRt)
-biocLite("AnnotationDbi")
+BiocManager::install("AnnotationDbi")
 library(AnnotationDbi)
 
 alg1 <- read.csv("GSE112753_alg-1_gk214_vs_WT_AD5.csv")
