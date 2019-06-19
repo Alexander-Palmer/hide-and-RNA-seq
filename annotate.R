@@ -34,6 +34,7 @@ algm2 <- merge(x=alg2, y=alg2_genes, by.x="ensembl.ID",by.y="ensembl_transcript_
 searchFilters(mart = mart, pattern = "base")
 listAttributes()
 
-alg1
-
-alg1 <- alg1[,-6]
+outersect <- function(x, y) {
+  sort(c(setdiff(x, y),
+         setdiff(y, x)))
+}
