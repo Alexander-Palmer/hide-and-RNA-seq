@@ -18,6 +18,11 @@ alg1$gene <- NA
 alg2$gene <- NA
 file$gene <- NA
 
+***
+Ina_s_data <- getBM(filters= "wormbase_gene", attributes= c("wikigene_name", "goslim_goa_description", "family_description"
+                                                     ), values = Eid_file, mart= mart)
+***
+
 alg1_genes <- getBM(filters= "chembl", attributes= c("chembl", "gene_biotype", "external_gene_name",
                     "description"), values = Eid_alg1, mart= mart)
 alg2_genes <- getBM(filters= "external_transcript_name", attributes= c("ensembl_transcript_id", "gene_biotype", "external_gene_name",
