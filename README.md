@@ -17,6 +17,6 @@ Contains scripts relating to:\
     - *miRDeep2 novel miRNA prediction flowthrough*\
 \
 \
-*Alexander Palmer, Zuryn Lab\
-Queensland Brain Institute, Australia*
+Alexander Palmer, Zuryn Lab\
+Queensland Brain Institute, Australia
 
