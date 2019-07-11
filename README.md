@@ -8,8 +8,10 @@ Contains scripts relating to:\
     - *venn diagrams*\
     - *miRNA normalisation*\
     - *isomiR analysis*\
-    - *SNP analysis*\
+    - *SNV analysis*\
     - *housekeeping miRNAs*\
+    - *determining isomiR type*\
+    - *determining isomiR reads*\
     - *sequence annotation*\
     - *cut-adapt and bowtie2 flowthrough*\
     - *miRDeep2 novel miRNA prediction flowthrough*\
