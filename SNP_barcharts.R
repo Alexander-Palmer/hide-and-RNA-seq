@@ -1,5 +1,6 @@
-a <- read.delim('total_meta2.txt')
-#a <- a[!a$SNP == 0, ]
+a <- read.delim('meta_updated.txt')
+a <- a[!a$genes == 0, ]
+a <- a[!a$SNP == 0, ]
 #a$SNP[a$SNP == TRUE] <- T
 #a$SNP[a$SNP == '1'] <- T
 a <- a[!a$SNP == FALSE, ]
@@ -11,155 +12,151 @@ a$A286_1 <- as.numeric(a$A286_1)
 a$A287_1 <- as.numeric(a$A287_1)
 a$A290_1 <- as.numeric(a$A290_1)
 a$A291_1 <- as.numeric(a$A291_1)
-a$Count <- rowSums(a[,c(25,26,27,28,29,30)])
-a$CountALG1 <- rowSums(a[,c(25,27,29)])
-a$CountALG2 <- rowSums(a[,c(26,28,30)])
-a$CountInt <- rowSums(a[,c(25,26)])
-a$CountNeu <- rowSums(a[,c(27,28)])
-a$CountMus <- rowSums(a[,c(29,30)])
+a$Count <- rowSums(a[,c(27,28,29,30,31,32)])
+a$CountALG1 <- rowSums(a[,c(27,29,31)])
+a$CountALG2 <- rowSums(a[,c(28,30,32)])
+a$CountInt <- rowSums(a[,c(27,28)])
+a$CountNeu <- rowSums(a[,c(29,30)])
+a$CountMus <- rowSums(a[,c(31,32)])
 
 #####
 IntALG1_A <- read.csv("IntALG1 vs N2 Top - Pos.csv", header=F)$V2
 IntALG1_A <- as.character(IntALG1_A)
-IntALG1_A <- intersect(IntALG1_A, a[,2])
+IntALG1_A <- intersect(IntALG1_A, a[,1])
+IntALG1_A <- paste0("^",IntALG1_A,"$")
 IntALG1_T <- read.csv("IntALG1 vs N2 Top - Pos.csv", header=F)$V2
 IntALG1_T <- as.character(IntALG1_T)
-IntALG1_T <- intersect(IntALG1_T, a[,2])
+IntALG1_T <- intersect(IntALG1_T, a[,1])
+IntALG1_T <- paste0("^",IntALG1_T,"$")
 IntALG1_G <- read.csv("IntALG1 vs N2 Top - Pos.csv", header=F)$V2
 IntALG1_G <- as.character(IntALG1_G)
-IntALG1_G <- intersect(IntALG1_G, a[,2])
+IntALG1_G <- intersect(IntALG1_G, a[,1])
+IntALG1_G <- paste0("^",IntALG1_G,"$")
 IntALG1_C <- read.csv("IntALG1 vs N2 Top - Pos.csv", header=F)$V2
 IntALG1_C <- as.character(IntALG1_C)
-IntALG1_C <- intersect(IntALG1_C, a[,2])
+IntALG1_C <- intersect(IntALG1_C, a[,1])
+IntALG1_C <- paste0("^",IntALG1_C,"$")
 
 NeuALG1_A <- read.csv("NeuALG1 vs N2 Top - Pos.csv", header=F)$V2
 NeuALG1_A <- as.character(NeuALG1_A)
-NeuALG1_A <- intersect(NeuALG1_A, a[,2])
+NeuALG1_A <- intersect(NeuALG1_A, a[,1])
+NeuALG1_A <- paste0("^",NeuALG1_A,"$")
 NeuALG1_T <- read.csv("NeuALG1 vs N2 Top - Pos.csv", header=F)$V2
 NeuALG1_T <- as.character(NeuALG1_T)
-NeuALG1_T <- intersect(NeuALG1_T, a[,2])
+NeuALG1_T <- intersect(NeuALG1_T, a[,1])
+NeuALG1_T <- paste0("^",NeuALG1_T,"$")
 NeuALG1_G <- read.csv("NeuALG1 vs N2 Top - Pos.csv", header=F)$V2
 NeuALG1_G <- as.character(NeuALG1_G)
-NeuALG1_G <- intersect(NeuALG1_G, a[,2])
+NeuALG1_G <- intersect(NeuALG1_G, a[,1])
+NeuALG1_G <- paste0("^",NeuALG1_G,"$")
 NeuALG1_C <- read.csv("NeuALG1 vs N2 Top - Pos.csv", header=F)$V2
 NeuALG1_C <- as.character(NeuALG1_C)
-NeuALG1_C <- intersect(NeuALG1_C, a[,2])
+NeuALG1_C <- intersect(NeuALG1_C, a[,1])
+NeuALG1_C <- paste0("^",NeuALG1_C,"$")
 
 MusALG1_A <- read.csv("MusALG1 vs N2 Top - Pos.csv", header=F)$V2
 MusALG1_A <- as.character(MusALG1_A)
-MusALG1_A <- intersect(MusALG1_A, a[,2])
+MusALG1_A <- intersect(MusALG1_A, a[,1])
+MusALG1_A <- paste0("^",MusALG1_A,"$")
 MusALG1_T <- read.csv("MusALG1 vs N2 Top - Pos.csv", header=F)$V2
 MusALG1_T <- as.character(MusALG1_T)
-MusALG1_T <- intersect(MusALG1_T, a[,2])
+MusALG1_T <- intersect(MusALG1_T, a[,1])
+MusALG1_T <- paste0("^",MusALG1_T,"$")
 MusALG1_G <- read.csv("MusALG1 vs N2 Top - Pos.csv", header=F)$V2
 MusALG1_G <- as.character(MusALG1_G)
-MusALG1_G <- intersect(MusALG1_G, a[,2])
+MusALG1_G <- intersect(MusALG1_G, a[,1])
+MusALG1_G <- paste0("^",MusALG1_G,"$")
 MusALG1_C <- read.csv("MusALG1 vs N2 Top - Pos.csv", header=F)$V2
 MusALG1_C <- as.character(MusALG1_C)
-MusALG1_C <- intersect(MusALG1_C, a[,2])
-
+MusALG1_C <- intersect(MusALG1_C, a[,1])
+MusALG1_C <- paste0("^",MusALG1_C,"$")
 
 IntALG2_A <- read.csv("IntALG2 vs N2 Top - Pos.csv", header=F)$V2
 IntALG2_A <- as.character(IntALG2_A)
-IntALG2_A <- intersect(IntALG2_A, a[,2])
+IntALG2_A <- intersect(IntALG2_A, a[,1])
+IntALG2_A <- paste0("^",IntALG2_A,"$")
 IntALG2_T <- read.csv("IntALG2 vs N2 Top - Pos.csv", header=F)$V2
 IntALG2_T <- as.character(IntALG2_T)
-IntALG2_T <- intersect(IntALG2_T, a[,2])
+IntALG2_T <- intersect(IntALG2_T, a[,1])
+IntALG2_T <- paste0("^",IntALG2_T,"$")
 IntALG2_G <- read.csv("IntALG2 vs N2 Top - Pos.csv", header=F)$V2
 IntALG2_G <- as.character(IntALG2_G)
-IntALG2_G <- intersect(IntALG2_G, a[,2])
+IntALG2_G <- intersect(IntALG2_G, a[,1])
+IntALG2_G <- paste0("^",IntALG2_G,"$")
 IntALG2_C <- read.csv("IntALG2 vs N2 Top - Pos.csv", header=F)$V2
 IntALG2_C <- as.character(IntALG2_C)
-IntALG2_C <- intersect(IntALG2_C, a[,2])
+IntALG2_C <- intersect(IntALG2_C, a[,1])
+IntALG2_C <- paste0("^",IntALG2_C,"$")
 
 NeuALG2_A <- read.csv("NeuALG2 vs N2 Top - Pos.csv", header=F)$V2
 NeuALG2_A <- as.character(NeuALG2_A)
-NeuALG2_A <- intersect(NeuALG2_A, a[,2])
+NeuALG2_A <- intersect(NeuALG2_A, a[,1])
+NeuALG2_A <- paste0("^",NeuALG2_A,"$")
 NeuALG2_T <- read.csv("NeuALG2 vs N2 Top - Pos.csv", header=F)$V2
 NeuALG2_T <- as.character(NeuALG2_T)
-NeuALG2_T <- intersect(NeuALG2_T, a[,2])
+NeuALG2_T <- intersect(NeuALG2_T, a[,1])
+NeuALG2_T <- paste0("^",NeuALG2_T,"$")
 NeuALG2_G <- read.csv("NeuALG2 vs N2 Top - Pos.csv", header=F)$V2
 NeuALG2_G <- as.character(NeuALG2_G)
-NeuALG2_G <- intersect(NeuALG2_G, a[,2])
+NeuALG2_G <- intersect(NeuALG2_G, a[,1])
+NeuALG2_G <- paste0("^",NeuALG2_G,"$")
 NeuALG2_C <- read.csv("NeuALG2 vs N2 Top - Pos.csv", header=F)$V2
 NeuALG2_C <- as.character(NeuALG2_C)
-NeuALG2_C <- intersect(NeuALG2_C, a[,2])
+NeuALG2_C <- intersect(NeuALG2_C, a[,1])
+NeuALG2_C <- paste0("^",NeuALG2_C,"$")
 
 MusALG2_A <- read.csv("MusALG2 vs N2 Top - Pos.csv", header=F)$V2
 MusALG2_A <- as.character(MusALG2_A)
-MusALG2_A <- intersect(MusALG2_A, a[,2])
+MusALG2_A <- intersect(MusALG2_A, a[,1])
+MusALG2_A <- paste0("^",MusALG2_A,"$")
 MusALG2_T <- read.csv("MusALG2 vs N2 Top - Pos.csv", header=F)$V2
 MusALG2_T <- as.character(MusALG2_T)
-MusALG2_T <- intersect(MusALG2_T, a[,2])
+MusALG2_T <- intersect(MusALG2_T, a[,1])
+MusALG2_T <- paste0("^",MusALG2_T,"$")
 MusALG2_G <- read.csv("MusALG2 vs N2 Top - Pos.csv", header=F)$V2
 MusALG2_G <- as.character(MusALG2_G)
-MusALG2_G <- intersect(MusALG2_G, a[,2])
+MusALG2_G <- intersect(MusALG2_G, a[,1])
+MusALG2_G <- paste0("^",MusALG2_G,"$")
 MusALG2_C <- read.csv("MusALG2 vs N2 Top - Pos.csv", header=F)$V2
 MusALG2_C <- as.character(MusALG2_C)
-MusALG2_C <- intersect(MusALG2_C, a[,2])
-
+MusALG2_C <- intersect(MusALG2_C, a[,1])
+MusALG2_C <- paste0("^",MusALG2_C,"$")
 
 IntALG1 <- Reduce(union, list(IntALG1_A, IntALG1_T, IntALG1_G, IntALG1_C))
-IntALG1 <- intersect(IntALG1, a[,2])
-write.table(IntALG1, file="IntALG1 vs N2 Top - Delim.csv", sep = ",", col.names = NA, qmethod = "double")
+#write.table(IntALG1, file="IntALG1 vs N2 Top - Delim.csv", sep = ",", col.names = NA, qmethod = "double")
 IntALG2 <- Reduce(union, list(IntALG2_A, IntALG2_T, IntALG2_G, IntALG2_C))
-IntALG2 <- intersect(IntALG2, a[,2])
-write.table(IntALG2, file="IntALG2 vs N2 Top - Delim.csv", sep = ",", col.names = NA, qmethod = "double")
+#write.table(IntALG2, file="IntALG2 vs N2 Top - Delim.csv", sep = ",", col.names = NA, qmethod = "double")
 NeuALG1 <- Reduce(union, list(NeuALG1_A, NeuALG1_T, NeuALG1_G, NeuALG1_C))
-NeuALG1 <- intersect(NeuALG1, a[,2])
-write.table(NeuALG1, file="NeuALG1 vs N2 Top - Delim.csv", sep = ",", col.names = NA, qmethod = "double")
+#write.table(NeuALG1, file="NeuALG1 vs N2 Top - Delim.csv", sep = ",", col.names = NA, qmethod = "double")
 NeuALG2 <- Reduce(union, list(NeuALG2_A, NeuALG2_T, NeuALG2_G, NeuALG2_C))
-NeuALG2 <- intersect(NeuALG2, a[,2])
-write.table(NeuALG2, file="NeuALG2 vs N2 Top - Delim.csv", sep = ",", col.names = NA, qmethod = "double")
+#write.table(NeuALG2, file="NeuALG2 vs N2 Top - Delim.csv", sep = ",", col.names = NA, qmethod = "double")
 MusALG1 <- Reduce(union, list(MusALG1_A, MusALG1_T, MusALG1_G, MusALG1_C))
-MusALG1 <- intersect(MusALG1, a[,2])
-write.table(MusALG1, file="MusALG1 vs N2 Top - Delim.csv", sep = ",", col.names = NA, qmethod = "double")
+#write.table(MusALG1, file="MusALG1 vs N2 Top - Delim.csv", sep = ",", col.names = NA, qmethod = "double")
 MusALG2 <- Reduce(union, list(MusALG2_A, MusALG2_T, MusALG2_G, MusALG2_C))
-MusALG2 <- intersect(MusALG2, a[,2])
-write.table(MusALG2, file="MusALG2 vs N2 Top - Delim.csv", sep = ",", col.names = NA, qmethod = "double")
-#Tissue, ALG and nucleotide as above
+#write.table(MusALG2, file="MusALG2 vs N2 Top - Delim.csv", sep = ",", col.names = NA, qmethod = "double")
 
+#Tissue, ALG and nucleotide as above
 ALG1_A <- Reduce(union, list(IntALG2_A, MusALG1_A, NeuALG1_A))
-ALG1_A <- intersect(ALG1_A, a[,2])
 ALG1_T <- Reduce(union, list(IntALG2_T, MusALG1_T, NeuALG1_T))
-ALG1_T <- intersect(ALG1_T, a[,2])
 ALG1_G <- Reduce(union, list(IntALG2_G, MusALG1_G, NeuALG1_G))
-ALG1_G <- intersect(ALG1_G, a[,2])
 ALG1_C <- Reduce(union, list(IntALG2_C, MusALG1_C, NeuALG1_C))
-ALG1_C <- intersect(ALG1_C, a[,2])
 ALG2_A <- Reduce(union, list(IntALG2_A, MusALG2_A, NeuALG2_A))
-ALG2_A <- intersect(ALG2_A, a[,2])
 ALG2_T <- Reduce(union, list(IntALG2_T, MusALG2_T, NeuALG2_T))
-ALG2_T <- intersect(ALG2_T, a[,2])
 ALG2_G <- Reduce(union, list(IntALG2_G, MusALG2_G, NeuALG2_G))
-ALG2_G <- intersect(ALG2_G, a[,2])
 ALG2_C <- Reduce(union, list(IntALG2_C, MusALG2_C, NeuALG2_C))
-ALG2_C <- intersect(ALG2_C, a[,2])
 
 Int_A <- Reduce(union, list(IntALG1_A, IntALG2_A))
-Int_A <- intersect(Int_A, a[,2])
 Int_T <- Reduce(union, list(IntALG1_T, IntALG2_T))
-Int_T <- intersect(Int_T, a[,2])
 Int_G <- Reduce(union, list(IntALG1_G, IntALG2_G))
-Int_G <- intersect(Int_G, a[,2])
 Int_C <- Reduce(union, list(IntALG1_C, IntALG2_C))
-Int_C <- intersect(Int_C, a[,2])
 Neu_A <- Reduce(union, list(NeuALG1_A, NeuALG2_A))
-Neu_A <- intersect(Neu_A, a[,2])
 Neu_T <- Reduce(union, list(NeuALG1_T, NeuALG2_T))
-Neu_T <- intersect(Neu_T, a[,2])
 Neu_G <- Reduce(union, list(NeuALG1_G, NeuALG2_G))
-Neu_G <- intersect(Neu_G, a[,2])
 Neu_C <- Reduce(union, list(NeuALG1_C, NeuALG2_C))
-Neu_C <- intersect(Neu_C, a[,2])
 Mus_A <- Reduce(union, list(MusALG1_A, MusALG2_A))
-Mus_A <- intersect(Mus_A, a[,2])
 Mus_T <- Reduce(union, list(MusALG1_T, MusALG2_T))
-Mus_T <- intersect(Mus_T, a[,2])
 Mus_G <- Reduce(union, list(MusALG1_G, MusALG2_G))
-Mus_G <- intersect(Mus_G, a[,2])
 Mus_C <- Reduce(union, list(MusALG1_C, MusALG2_C))
-Mus_C <- intersect(Mus_C, a[,2])
 
 ALG1 <- Reduce(union, list(ALG1_A, ALG1_T, ALG1_G, ALG1_C))
 ALG2 <- Reduce(union, list(ALG2_A, ALG2_T, ALG2_G, ALG2_C))
@@ -172,135 +169,134 @@ Meta_T <- Reduce(union, list(ALG1_T, ALG2_T))
 Meta_G <- Reduce(union, list(ALG1_G, ALG2_G))
 Meta_C <- Reduce(union, list(ALG1_C, ALG2_C))
 
-a <- a[grep(paste(Meta, collapse = "|"), a[,2]), ]
-aALG1 <- a[grep(paste(ALG1, collapse = "|"), a[,2]), ]
-aALG2 <- a[grep(paste(ALG2, collapse = "|"), a[,2]), ]
-aInt <- a[grep(paste(Int, collapse = "|"), a[,2]), ]
-aNeu <- a[grep(paste(Neu, collapse = "|"), a[,2]), ]
-aMus <- a[grep(paste(Mus, collapse = "|"), a[,2]), ]
+a <- a[grep(paste(Meta, collapse = "|"), a[,1]), ]
+aALG1 <- a[grep(paste(ALG1, collapse = "|"), a[,1]), ]
+aALG2 <- a[grep(paste(ALG2, collapse = "|"), a[,1]), ]
+aInt <- a[grep(paste(Int, collapse = "|"), a[,1]), ]
+aNeu <- a[grep(paste(Neu, collapse = "|"), a[,1]), ]
+aMus <- a[grep(paste(Mus, collapse = "|"), a[,1]), ]
 
-aInt_A <- a[grep(paste(Int_A, collapse = "|"), a[,2]), ]
-aInt_T <- a[grep(paste(Int_T, collapse = "|"), a[,2]), ]
-aInt_G <- a[grep(paste(Int_G, collapse = "|"), a[,2]), ]
-aInt_C <- a[grep(paste(Int_C, collapse = "|"), a[,2]), ]
+aInt_A <- a[grep(paste(Int_A, collapse = "|"), a[,1]), ]
+aInt_T <- a[grep(paste(Int_T, collapse = "|"), a[,1]), ]
+aInt_G <- a[grep(paste(Int_G, collapse = "|"), a[,1]), ]
+aInt_C <- a[grep(paste(Int_C, collapse = "|"), a[,1]), ]
 
-aNeu_A <- a[grep(paste(Neu_A, collapse = "|"), a[,2]), ]
-aNeu_T <- a[grep(paste(Neu_T, collapse = "|"), a[,2]), ]
-aNeu_G <- a[grep(paste(Neu_G, collapse = "|"), a[,2]), ]
-aNeu_C <- a[grep(paste(Neu_C, collapse = "|"), a[,2]), ]
+aNeu_A <- a[grep(paste(Neu_A, collapse = "|"), a[,1]), ]
+aNeu_T <- a[grep(paste(Neu_T, collapse = "|"), a[,1]), ]
+aNeu_G <- a[grep(paste(Neu_G, collapse = "|"), a[,1]), ]
+aNeu_C <- a[grep(paste(Neu_C, collapse = "|"), a[,1]), ]
 
-aMus_A <- a[grep(paste(Mus_A, collapse = "|"), a[,2]), ]
-aMus_T <- a[grep(paste(Mus_T, collapse = "|"), a[,2]), ]
-aMus_G <- a[grep(paste(Mus_G, collapse = "|"), a[,2]), ]
-aMus_C <- a[grep(paste(Mus_C, collapse = "|"), a[,2]), ]
+aMus_A <- a[grep(paste(Mus_A, collapse = "|"), a[,1]), ]
+aMus_T <- a[grep(paste(Mus_T, collapse = "|"), a[,1]), ]
+aMus_G <- a[grep(paste(Mus_G, collapse = "|"), a[,1]), ]
+aMus_C <- a[grep(paste(Mus_C, collapse = "|"), a[,1]), ]
 
-aIntALG1 <- a[grep(paste(IntALG2, collapse = "|"), a[,2]), ]
-aIntALG2 <- a[grep(paste(IntALG2, collapse = "|"), a[,2]), ]
-aNeuALG1 <- a[grep(paste(NeuALG1, collapse = "|"), a[,2]), ]
-aNeuALG2 <- a[grep(paste(NeuALG2, collapse = "|"), a[,2]), ]
-aMusALG1 <- a[grep(paste(MusALG1, collapse = "|"), a[,2]), ]
-aMusALG2 <- a[grep(paste(MusALG2, collapse = "|"), a[,2]), ]
+aIntALG1 <- a[grep(paste(IntALG2, collapse = "|"), a[,1]), ]
+aIntALG2 <- a[grep(paste(IntALG2, collapse = "|"), a[,1]), ]
+aNeuALG1 <- a[grep(paste(NeuALG1, collapse = "|"), a[,1]), ]
+aNeuALG2 <- a[grep(paste(NeuALG2, collapse = "|"), a[,1]), ]
+aMusALG1 <- a[grep(paste(MusALG1, collapse = "|"), a[,1]), ]
+aMusALG2 <- a[grep(paste(MusALG2, collapse = "|"), a[,1]), ]
 
-aIntALG1_A <- a[grep(paste(IntALG1_A, collapse = "|"), a[,2]), ]
-aIntALG1_T <- a[grep(paste(IntALG1_T, collapse = "|"), a[,2]), ]
-aIntALG1_G <- a[grep(paste(IntALG1_G, collapse = "|"), a[,2]), ]
-aIntALG1_C <- a[grep(paste(IntALG1_C, collapse = "|"), a[,2]), ]
+aIntALG1_A <- a[grep(paste(IntALG1_A, collapse = "|"), a[,1]), ]
+aIntALG1_T <- a[grep(paste(IntALG1_T, collapse = "|"), a[,1]), ]
+aIntALG1_G <- a[grep(paste(IntALG1_G, collapse = "|"), a[,1]), ]
+aIntALG1_C <- a[grep(paste(IntALG1_C, collapse = "|"), a[,1]), ]
+aIntALG2_A <- a[grep(paste(IntALG2_A, collapse = "|"), a[,1]), ]
+aIntALG2_T <- a[grep(paste(IntALG2_T, collapse = "|"), a[,1]), ]
+aIntALG2_G <- a[grep(paste(IntALG2_G, collapse = "|"), a[,1]), ]
+aIntALG2_C <- a[grep(paste(IntALG2_C, collapse = "|"), a[,1]), ]
 
-aIntALG2_A <- a[grep(paste(IntALG2_A, collapse = "|"), a[,2]), ]
-aIntALG2_T <- a[grep(paste(IntALG2_T, collapse = "|"), a[,2]), ]
-aIntALG2_G <- a[grep(paste(IntALG2_G, collapse = "|"), a[,2]), ]
-aIntALG2_C <- a[grep(paste(IntALG2_C, collapse = "|"), a[,2]), ]
+aNeuALG1_A <- a[grep(paste(NeuALG1_A, collapse = "|"), a[,1]), ]
+aNeuALG1_T <- a[grep(paste(NeuALG1_T, collapse = "|"), a[,1]), ]
+aNeuALG1_G <- a[grep(paste(NeuALG1_G, collapse = "|"), a[,1]), ]
+aNeuALG1_C <- a[grep(paste(NeuALG1_C, collapse = "|"), a[,1]), ]
+aNeuALG2_A <- a[grep(paste(NeuALG2_A, collapse = "|"), a[,1]), ]
+aNeuALG2_T <- a[grep(paste(NeuALG2_T, collapse = "|"), a[,1]), ]
+aNeuALG2_G <- a[grep(paste(NeuALG2_G, collapse = "|"), a[,1]), ]
+aNeuALG2_C <- a[grep(paste(NeuALG2_C, collapse = "|"), a[,1]), ]
 
-aNeuALG1_A <- a[grep(paste(NeuALG1_A, collapse = "|"), a[,2]), ]
-aNeuALG1_T <- a[grep(paste(NeuALG1_T, collapse = "|"), a[,2]), ]
-aNeuALG1_G <- a[grep(paste(NeuALG1_G, collapse = "|"), a[,2]), ]
-aNeuALG1_C <- a[grep(paste(NeuALG1_C, collapse = "|"), a[,2]), ]
-
-aNeuALG2_A <- a[grep(paste(NeuALG2_A, collapse = "|"), a[,2]), ]
-aNeuALG2_T <- a[grep(paste(NeuALG2_T, collapse = "|"), a[,2]), ]
-aNeuALG2_G <- a[grep(paste(NeuALG2_G, collapse = "|"), a[,2]), ]
-aNeuALG2_C <- a[grep(paste(NeuALG2_C, collapse = "|"), a[,2]), ]
-
-aMusALG1_A <- a[grep(paste(MusALG1_A, collapse = "|"), a[,2]), ]
-aMusALG1_T <- a[grep(paste(MusALG1_T, collapse = "|"), a[,2]), ]
-aMusALG1_G <- a[grep(paste(MusALG1_G, collapse = "|"), a[,2]), ]
-aMusALG1_C <- a[grep(paste(MusALG1_C, collapse = "|"), a[,2]), ]
-
-aMusALG2_A <- a[grep(paste(MusALG2_A, collapse = "|"), a[,2]), ]
-aMusALG2_T <- a[grep(paste(MusALG2_T, collapse = "|"), a[,2]), ]
-aMusALG2_G <- a[grep(paste(MusALG2_G, collapse = "|"), a[,2]), ]
-aMusALG2_C <- a[grep(paste(MusALG2_C, collapse = "|"), a[,2]), ]
+aMusALG1_A <- a[grep(paste(MusALG1_A, collapse = "|"), a[,1]), ]
+aMusALG1_T <- a[grep(paste(MusALG1_T, collapse = "|"), a[,1]), ]
+aMusALG1_G <- a[grep(paste(MusALG1_G, collapse = "|"), a[,1]), ]
+aMusALG1_C <- a[grep(paste(MusALG1_C, collapse = "|"), a[,1]), ]
+aMusALG2_A <- a[grep(paste(MusALG2_A, collapse = "|"), a[,1]), ]
+aMusALG2_T <- a[grep(paste(MusALG2_T, collapse = "|"), a[,1]), ]
+aMusALG2_G <- a[grep(paste(MusALG2_G, collapse = "|"), a[,1]), ]
+aMusALG2_C <- a[grep(paste(MusALG2_C, collapse = "|"), a[,1]), ]
 
 ######################################################################################################
 #aPlcehldr$Count_1 <- ifelse(as.numeric(aPlcehldr[,24]) == 1, (1/NROW(aPlcehldr))/(NROW(Int)), 0)#####
 ######################################################################################################
 ###########################################################################################################################
-#Mus nucleotide
+#Meta nucleotide
 #####
 {
     datalist_Count = list()
-    for (Filename in Mus_A) {
-      aPlcehldr <- a[grep(paste(Filename, collapse = "|"), a[,2]), ]
-      aPlcehldr$count <- NA
-      aPlcehldr$count <- ifelse(aPlcehldr[,24] != 0, 1, 0)
-      datalist_Count[[Filename]] <- aPlcehldr
-    }
-    Mus_A_nrow <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'count')), na.rm = TRUE)
+  for (Filename in Meta_A) {
+    aPlcehldr <- a[grep(paste(Filename, collapse = "|"), a[,1]), ]
+    aPlcehldr$count <- NA
+    aPlcehldr$count <- ifelse(aPlcehldr[,23] != 0, 1, 0)
+    datalist_Count[[Filename]] <- aPlcehldr
+  }
+
+  Meta_A_sum <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'comb_av_total')), na.rm = TRUE)
+  Meta_A_nrow <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'count')), na.rm = TRUE)
 
   datalist_Count = list()
 
-  for (Filename in Mus_A) {
-    aPlcehldr <- a[grep(paste(Filename, collapse = "|"), a[,2]), ]
+  for (Filename in Meta_A) {
+    aPlcehldr <- a[grep(paste(Filename, collapse = "|"), a[,1]), ]
     aPlcehldr$Count_1 <- NA
-    aPlcehldr$Count_1 <- ifelse(as.numeric(aPlcehldr[,24]) == 1 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_1 <- ifelse(as.numeric(aPlcehldr[,23]) == 1 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_2 <- NA
-    aPlcehldr$Count_2 <- ifelse(as.numeric(aPlcehldr[,24]) == 2 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_2 <- ifelse(as.numeric(aPlcehldr[,23]) == 2 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_3 <- NA
-    aPlcehldr$Count_3 <- ifelse(as.numeric(aPlcehldr[,24]) == 3 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_3 <- ifelse(as.numeric(aPlcehldr[,23]) == 3 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_4 <- NA
-    aPlcehldr$Count_4 <- ifelse(as.numeric(aPlcehldr[,24]) == 4 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_4 <- ifelse(as.numeric(aPlcehldr[,23]) == 4 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_5 <- NA
-    aPlcehldr$Count_5 <- ifelse(as.numeric(aPlcehldr[,24]) == 5 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_5 <- ifelse(as.numeric(aPlcehldr[,23]) == 5 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_6 <- NA
-    aPlcehldr$Count_6 <- ifelse(as.numeric(aPlcehldr[,24]) == 6 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_6 <- ifelse(as.numeric(aPlcehldr[,23]) == 6 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_7 <- NA
-    aPlcehldr$Count_7 <- ifelse(as.numeric(aPlcehldr[,24]) == 7 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_7 <- ifelse(as.numeric(aPlcehldr[,23]) == 7 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_8 <- NA
-    aPlcehldr$Count_8 <- ifelse(as.numeric(aPlcehldr[,24]) == 8 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_8 <- ifelse(as.numeric(aPlcehldr[,23]) == 8 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_9 <- NA
-    aPlcehldr$Count_9 <- ifelse(as.numeric(aPlcehldr[,24]) == 9 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_9 <- ifelse(as.numeric(aPlcehldr[,23]) == 9 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_10 <- NA
-    aPlcehldr$Count_10 <- ifelse(as.numeric(aPlcehldr[,24]) == 10 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_10 <- ifelse(as.numeric(aPlcehldr[,23]) == 10 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_11 <- NA
-    aPlcehldr$Count_11 <- ifelse(as.numeric(aPlcehldr[,24]) == 11 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_11 <- ifelse(as.numeric(aPlcehldr[,23]) == 11 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_12 <- NA
-    aPlcehldr$Count_12 <- ifelse(as.numeric(aPlcehldr[,24]) == 12 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_12 <- ifelse(as.numeric(aPlcehldr[,23]) == 12 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_13 <- NA
-    aPlcehldr$Count_13 <- ifelse(as.numeric(aPlcehldr[,24]) == 13 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_13 <- ifelse(as.numeric(aPlcehldr[,23]) == 13 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_14 <- NA
-    aPlcehldr$Count_14 <- ifelse(as.numeric(aPlcehldr[,24]) == 14 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_14 <- ifelse(as.numeric(aPlcehldr[,23]) == 14 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_15 <- NA
-    aPlcehldr$Count_15 <- ifelse(as.numeric(aPlcehldr[,24]) == 15 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_15 <- ifelse(as.numeric(aPlcehldr[,23]) == 15 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_16 <- NA
-    aPlcehldr$Count_16 <- ifelse(as.numeric(aPlcehldr[,24]) == 16 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_16 <- ifelse(as.numeric(aPlcehldr[,23]) == 16 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_17 <- NA
-    aPlcehldr$Count_17 <- ifelse(as.numeric(aPlcehldr[,24]) == 17 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_17 <- ifelse(as.numeric(aPlcehldr[,23]) == 17 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_18 <- NA
-    aPlcehldr$Count_18 <- ifelse(as.numeric(aPlcehldr[,24]) == 18 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_18 <- ifelse(as.numeric(aPlcehldr[,23]) == 18 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_19 <- NA
-    aPlcehldr$Count_19 <- ifelse(as.numeric(aPlcehldr[,24]) == 19 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_19 <- ifelse(as.numeric(aPlcehldr[,23]) == 19 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_20 <- NA
-    aPlcehldr$Count_20 <- ifelse(as.numeric(aPlcehldr[,24]) == 20 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_20 <- ifelse(as.numeric(aPlcehldr[,23]) == 20 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_21 <- NA
-    aPlcehldr$Count_21 <- ifelse(as.numeric(aPlcehldr[,24]) == 21 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_21 <- ifelse(as.numeric(aPlcehldr[,23]) == 21 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_22 <- NA
-    aPlcehldr$Count_22 <- ifelse(as.numeric(aPlcehldr[,24]) == 22 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_22 <- ifelse(as.numeric(aPlcehldr[,23]) == 22 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_23 <- NA
-    aPlcehldr$Count_23 <- ifelse(as.numeric(aPlcehldr[,24]) == 23 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_23 <- ifelse(as.numeric(aPlcehldr[,23]) == 23 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_24 <- NA
-    aPlcehldr$Count_24 <- ifelse(as.numeric(aPlcehldr[,24]) == 24 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_24 <- ifelse(as.numeric(aPlcehldr[,23]) == 24 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_25 <- NA
-    aPlcehldr$Count_25 <- ifelse(as.numeric(aPlcehldr[,24]) == 25 & aPlcehldr[,23] == "A", 1/Mus_A_nrow, 0)
+    aPlcehldr$Count_25 <- ifelse(as.numeric(aPlcehldr[,23]) == 25 & aPlcehldr[,21] == "A", aPlcehldr$comb_av_total/Meta_A_sum, 0)
 
     datalist_Count[[Filename]] <- aPlcehldr
   }
@@ -331,69 +327,69 @@ aMusALG2_C <- a[grep(paste(MusALG2_C, collapse = "|"), a[,2]), ]
   nt_a24 <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'Count_24')), na.rm = TRUE)
   nt_a25 <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'Count_25')), na.rm = TRUE)
 
-    datalist_Count = list()
-    for (Filename in Mus_T) {
-      aPlcehldr <- a[grep(paste(Filename, collapse = "|"), a[,2]), ]
-      aPlcehldr$count <- NA
-      aPlcehldr$count <- ifelse(aPlcehldr[,24] != 0, 1, 0)
-      datalist_Count[[Filename]] <- aPlcehldr
-    }
-    Mus_T_nrow <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'count')), na.rm = TRUE)
+  datalist_Count = list()
+  for (Filename in Meta_T) {
+    aPlcehldr <- a[grep(paste(Filename, collapse = "|"), a[,1]), ]
+    aPlcehldr$count <- NA
+    aPlcehldr$count <- ifelse(aPlcehldr[,23] != 0, 1, 0)
+    datalist_Count[[Filename]] <- aPlcehldr
+  }
+  Meta_T_nrow <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'count')), na.rm = TRUE)
 
   datalist_Count = list()
 
-  for (Filename in Mus_T) {
-    aPlcehldr <- a[grep(paste(Filename, collapse = "|"), a[,2]), ]
+  for (Filename in Meta_T) {
+    aPlcehldr <- a[grep(paste(Filename, collapse = "|"), a[,1]), ]
     aPlcehldr$Count_1 <- NA
-    aPlcehldr$Count_1 <- ifelse(as.numeric(aPlcehldr[,24]) == 1 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_1 <- ifelse(as.numeric(aPlcehldr[,23]) == 1 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_2 <- NA
-    aPlcehldr$Count_2 <- ifelse(as.numeric(aPlcehldr[,24]) == 2 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_2 <- ifelse(as.numeric(aPlcehldr[,23]) == 2 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_3 <- NA
-    aPlcehldr$Count_3 <- ifelse(as.numeric(aPlcehldr[,24]) == 3 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_3 <- ifelse(as.numeric(aPlcehldr[,23]) == 3 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_4 <- NA
-    aPlcehldr$Count_4 <- ifelse(as.numeric(aPlcehldr[,24]) == 4 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_4 <- ifelse(as.numeric(aPlcehldr[,23]) == 4 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_5 <- NA
-    aPlcehldr$Count_5 <- ifelse(as.numeric(aPlcehldr[,24]) == 5 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_5 <- ifelse(as.numeric(aPlcehldr[,23]) == 5 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_6 <- NA
-    aPlcehldr$Count_6 <- ifelse(as.numeric(aPlcehldr[,24]) == 6 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_6 <- ifelse(as.numeric(aPlcehldr[,23]) == 6 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_7 <- NA
-    aPlcehldr$Count_7 <- ifelse(as.numeric(aPlcehldr[,24]) == 7 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_7 <- ifelse(as.numeric(aPlcehldr[,23]) == 7 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_8 <- NA
-    aPlcehldr$Count_8 <- ifelse(as.numeric(aPlcehldr[,24]) == 8 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_8 <- ifelse(as.numeric(aPlcehldr[,23]) == 8 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_9 <- NA
-    aPlcehldr$Count_9 <- ifelse(as.numeric(aPlcehldr[,24]) == 9 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_9 <- ifelse(as.numeric(aPlcehldr[,23]) == 9 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_10 <- NA
-    aPlcehldr$Count_10 <- ifelse(as.numeric(aPlcehldr[,24]) == 10 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_10 <- ifelse(as.numeric(aPlcehldr[,23]) == 10 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_11 <- NA
-    aPlcehldr$Count_11 <- ifelse(as.numeric(aPlcehldr[,24]) == 11 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_11 <- ifelse(as.numeric(aPlcehldr[,23]) == 11 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_12 <- NA
-    aPlcehldr$Count_12 <- ifelse(as.numeric(aPlcehldr[,24]) == 12 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_12 <- ifelse(as.numeric(aPlcehldr[,23]) == 12 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_13 <- NA
-    aPlcehldr$Count_13 <- ifelse(as.numeric(aPlcehldr[,24]) == 13 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_13 <- ifelse(as.numeric(aPlcehldr[,23]) == 13 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_14 <- NA
-    aPlcehldr$Count_14 <- ifelse(as.numeric(aPlcehldr[,24]) == 14 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_14 <- ifelse(as.numeric(aPlcehldr[,23]) == 14 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_15 <- NA
-    aPlcehldr$Count_15 <- ifelse(as.numeric(aPlcehldr[,24]) == 15 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_15 <- ifelse(as.numeric(aPlcehldr[,23]) == 15 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_16 <- NA
-    aPlcehldr$Count_16 <- ifelse(as.numeric(aPlcehldr[,24]) == 16 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_16 <- ifelse(as.numeric(aPlcehldr[,23]) == 16 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_17 <- NA
-    aPlcehldr$Count_17 <- ifelse(as.numeric(aPlcehldr[,24]) == 17 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_17 <- ifelse(as.numeric(aPlcehldr[,23]) == 17 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_18 <- NA
-    aPlcehldr$Count_18 <- ifelse(as.numeric(aPlcehldr[,24]) == 18 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_18 <- ifelse(as.numeric(aPlcehldr[,23]) == 18 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_19 <- NA
-    aPlcehldr$Count_19 <- ifelse(as.numeric(aPlcehldr[,24]) == 19 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_19 <- ifelse(as.numeric(aPlcehldr[,23]) == 19 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_20 <- NA
-    aPlcehldr$Count_20 <- ifelse(as.numeric(aPlcehldr[,24]) == 20 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_20 <- ifelse(as.numeric(aPlcehldr[,23]) == 20 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_21 <- NA
-    aPlcehldr$Count_21 <- ifelse(as.numeric(aPlcehldr[,24]) == 21 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_21 <- ifelse(as.numeric(aPlcehldr[,23]) == 21 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_22 <- NA
-    aPlcehldr$Count_22 <- ifelse(as.numeric(aPlcehldr[,24]) == 22 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_22 <- ifelse(as.numeric(aPlcehldr[,23]) == 22 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_23 <- NA
-    aPlcehldr$Count_23 <- ifelse(as.numeric(aPlcehldr[,24]) == 23 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_23 <- ifelse(as.numeric(aPlcehldr[,23]) == 23 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_24 <- NA
-    aPlcehldr$Count_24 <- ifelse(as.numeric(aPlcehldr[,24]) == 24 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_24 <- ifelse(as.numeric(aPlcehldr[,23]) == 24 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_25 <- NA
-    aPlcehldr$Count_25 <- ifelse(as.numeric(aPlcehldr[,24]) == 25 & aPlcehldr[,23] == "T", 1/Mus_T_nrow, 0)
+    aPlcehldr$Count_25 <- ifelse(as.numeric(aPlcehldr[,23]) == 25 & aPlcehldr[,21] == "T", aPlcehldr$comb_av_total/Meta_A_sum, 0)
 
     datalist_Count[[Filename]] <- aPlcehldr
   }
@@ -424,69 +420,69 @@ aMusALG2_C <- a[grep(paste(MusALG2_C, collapse = "|"), a[,2]), ]
   nt_t24 <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'Count_24')), na.rm = TRUE)
   nt_t25 <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'Count_25')), na.rm = TRUE)
 
-    datalist_Count = list()
-    for (Filename in Mus_G) {
-      aPlcehldr <- a[grep(paste(Filename, collapse = "|"), a[,2]), ]
-      aPlcehldr$count <- NA
-      aPlcehldr$count <- ifelse(aPlcehldr[,24] != 0, 1, 0)
-      datalist_Count[[Filename]] <- aPlcehldr
-    }
-    Mus_G_nrow <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'count')), na.rm = TRUE)
+  datalist_Count = list()
+  for (Filename in Meta_G) {
+    aPlcehldr <- a[grep(paste(Filename, collapse = "|"), a[,1]), ]
+    aPlcehldr$count <- NA
+    aPlcehldr$count <- ifelse(aPlcehldr[,23] != 0, 1, 0)
+    datalist_Count[[Filename]] <- aPlcehldr
+  }
+  Meta_G_nrow <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'count')), na.rm = TRUE)
 
   datalist_Count = list()
 
-  for (Filename in Mus_G) {
-    aPlcehldr <- a[grep(paste(Filename, collapse = "|"), a[,2]), ]
+  for (Filename in Meta_G) {
+    aPlcehldr <- a[grep(paste(Filename, collapse = "|"), a[,1]), ]
     aPlcehldr$Count_1 <- NA
-    aPlcehldr$Count_1 <- ifelse(as.numeric(aPlcehldr[,24]) == 1 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_1 <- ifelse(as.numeric(aPlcehldr[,23]) == 1 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_2 <- NA
-    aPlcehldr$Count_2 <- ifelse(as.numeric(aPlcehldr[,24]) == 2 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_2 <- ifelse(as.numeric(aPlcehldr[,23]) == 2 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_3 <- NA
-    aPlcehldr$Count_3 <- ifelse(as.numeric(aPlcehldr[,24]) == 3 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_3 <- ifelse(as.numeric(aPlcehldr[,23]) == 3 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_4 <- NA
-    aPlcehldr$Count_4 <- ifelse(as.numeric(aPlcehldr[,24]) == 4 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_4 <- ifelse(as.numeric(aPlcehldr[,23]) == 4 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_5 <- NA
-    aPlcehldr$Count_5 <- ifelse(as.numeric(aPlcehldr[,24]) == 5 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_5 <- ifelse(as.numeric(aPlcehldr[,23]) == 5 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_6 <- NA
-    aPlcehldr$Count_6 <- ifelse(as.numeric(aPlcehldr[,24]) == 6 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_6 <- ifelse(as.numeric(aPlcehldr[,23]) == 6 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_7 <- NA
-    aPlcehldr$Count_7 <- ifelse(as.numeric(aPlcehldr[,24]) == 7 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_7 <- ifelse(as.numeric(aPlcehldr[,23]) == 7 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_8 <- NA
-    aPlcehldr$Count_8 <- ifelse(as.numeric(aPlcehldr[,24]) == 8 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_8 <- ifelse(as.numeric(aPlcehldr[,23]) == 8 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_9 <- NA
-    aPlcehldr$Count_9 <- ifelse(as.numeric(aPlcehldr[,24]) == 9 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_9 <- ifelse(as.numeric(aPlcehldr[,23]) == 9 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_10 <- NA
-    aPlcehldr$Count_10 <- ifelse(as.numeric(aPlcehldr[,24]) == 10 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_10 <- ifelse(as.numeric(aPlcehldr[,23]) == 10 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_11 <- NA
-    aPlcehldr$Count_11 <- ifelse(as.numeric(aPlcehldr[,24]) == 11 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_11 <- ifelse(as.numeric(aPlcehldr[,23]) == 11 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_12 <- NA
-    aPlcehldr$Count_12 <- ifelse(as.numeric(aPlcehldr[,24]) == 12 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_12 <- ifelse(as.numeric(aPlcehldr[,23]) == 12 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_13 <- NA
-    aPlcehldr$Count_13 <- ifelse(as.numeric(aPlcehldr[,24]) == 13 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_13 <- ifelse(as.numeric(aPlcehldr[,23]) == 13 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_14 <- NA
-    aPlcehldr$Count_14 <- ifelse(as.numeric(aPlcehldr[,24]) == 14 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_14 <- ifelse(as.numeric(aPlcehldr[,23]) == 14 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_15 <- NA
-    aPlcehldr$Count_15 <- ifelse(as.numeric(aPlcehldr[,24]) == 15 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_15 <- ifelse(as.numeric(aPlcehldr[,23]) == 15 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_16 <- NA
-    aPlcehldr$Count_16 <- ifelse(as.numeric(aPlcehldr[,24]) == 16 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_16 <- ifelse(as.numeric(aPlcehldr[,23]) == 16 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_17 <- NA
-    aPlcehldr$Count_17 <- ifelse(as.numeric(aPlcehldr[,24]) == 17 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_17 <- ifelse(as.numeric(aPlcehldr[,23]) == 17 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_18 <- NA
-    aPlcehldr$Count_18 <- ifelse(as.numeric(aPlcehldr[,24]) == 18 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_18 <- ifelse(as.numeric(aPlcehldr[,23]) == 18 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_19 <- NA
-    aPlcehldr$Count_19 <- ifelse(as.numeric(aPlcehldr[,24]) == 19 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_19 <- ifelse(as.numeric(aPlcehldr[,23]) == 19 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_20 <- NA
-    aPlcehldr$Count_20 <- ifelse(as.numeric(aPlcehldr[,24]) == 20 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_20 <- ifelse(as.numeric(aPlcehldr[,23]) == 20 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_21 <- NA
-    aPlcehldr$Count_21 <- ifelse(as.numeric(aPlcehldr[,24]) == 21 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_21 <- ifelse(as.numeric(aPlcehldr[,23]) == 21 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_22 <- NA
-    aPlcehldr$Count_22 <- ifelse(as.numeric(aPlcehldr[,24]) == 22 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_22 <- ifelse(as.numeric(aPlcehldr[,23]) == 22 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_23 <- NA
-    aPlcehldr$Count_23 <- ifelse(as.numeric(aPlcehldr[,24]) == 23 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_23 <- ifelse(as.numeric(aPlcehldr[,23]) == 23 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_24 <- NA
-    aPlcehldr$Count_24 <- ifelse(as.numeric(aPlcehldr[,24]) == 24 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_24 <- ifelse(as.numeric(aPlcehldr[,23]) == 24 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_25 <- NA
-    aPlcehldr$Count_25 <- ifelse(as.numeric(aPlcehldr[,24]) == 25 & aPlcehldr[,23] == "G", 1/Mus_G_nrow, 0)
+    aPlcehldr$Count_25 <- ifelse(as.numeric(aPlcehldr[,23]) == 25 & aPlcehldr[,21] == "G", aPlcehldr$comb_av_total/Meta_A_sum, 0)
 
     datalist_Count[[Filename]] <- aPlcehldr
   }
@@ -517,69 +513,69 @@ aMusALG2_C <- a[grep(paste(MusALG2_C, collapse = "|"), a[,2]), ]
   nt_g24 <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'Count_24')), na.rm = TRUE)
   nt_g25 <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'Count_25')), na.rm = TRUE)
 
-    datalist_Count = list()
-    for (Filename in Mus_C) {
-      aPlcehldr <- a[grep(paste(Filename, collapse = "|"), a[,2]), ]
-      aPlcehldr$count <- NA
-      aPlcehldr$count <- ifelse(aPlcehldr[,24] != 0, 1, 0)
-      datalist_Count[[Filename]] <- aPlcehldr
-    }
-    Mus_C_nrow <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'count')), na.rm = TRUE)
+  datalist_Count = list()
+  for (Filename in Meta_C) {
+    aPlcehldr <- a[grep(paste(Filename, collapse = "|"), a[,1]), ]
+    aPlcehldr$count <- NA
+    aPlcehldr$count <- ifelse(aPlcehldr[,23] != 0, 1, 0)
+    datalist_Count[[Filename]] <- aPlcehldr
+  }
+  Meta_C_nrow <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'count')), na.rm = TRUE)
 
   datalist_Count = list()
 
-  for (Filename in Mus_C) {
-    aPlcehldr <- a[grep(paste(Filename, collapse = "|"), a[,2]), ]
+  for (Filename in Meta_C) {
+    aPlcehldr <- a[grep(paste(Filename, collapse = "|"), a[,1]), ]
     aPlcehldr$Count_1 <- NA
-    aPlcehldr$Count_1 <- ifelse(as.numeric(aPlcehldr[,24]) == 1 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_1 <- ifelse(as.numeric(aPlcehldr[,23]) == 1 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_2 <- NA
-    aPlcehldr$Count_2 <- ifelse(as.numeric(aPlcehldr[,24]) == 2 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_2 <- ifelse(as.numeric(aPlcehldr[,23]) == 2 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_3 <- NA
-    aPlcehldr$Count_3 <- ifelse(as.numeric(aPlcehldr[,24]) == 3 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_3 <- ifelse(as.numeric(aPlcehldr[,23]) == 3 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_4 <- NA
-    aPlcehldr$Count_4 <- ifelse(as.numeric(aPlcehldr[,24]) == 4 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_4 <- ifelse(as.numeric(aPlcehldr[,23]) == 4 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_5 <- NA
-    aPlcehldr$Count_5 <- ifelse(as.numeric(aPlcehldr[,24]) == 5 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_5 <- ifelse(as.numeric(aPlcehldr[,23]) == 5 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_6 <- NA
-    aPlcehldr$Count_6 <- ifelse(as.numeric(aPlcehldr[,24]) == 6 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_6 <- ifelse(as.numeric(aPlcehldr[,23]) == 6 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_7 <- NA
-    aPlcehldr$Count_7 <- ifelse(as.numeric(aPlcehldr[,24]) == 7 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_7 <- ifelse(as.numeric(aPlcehldr[,23]) == 7 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_8 <- NA
-    aPlcehldr$Count_8 <- ifelse(as.numeric(aPlcehldr[,24]) == 8 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_8 <- ifelse(as.numeric(aPlcehldr[,23]) == 8 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_9 <- NA
-    aPlcehldr$Count_9 <- ifelse(as.numeric(aPlcehldr[,24]) == 9 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_9 <- ifelse(as.numeric(aPlcehldr[,23]) == 9 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_10 <- NA
-    aPlcehldr$Count_10 <- ifelse(as.numeric(aPlcehldr[,24]) == 10 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_10 <- ifelse(as.numeric(aPlcehldr[,23]) == 10 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_11 <- NA
-    aPlcehldr$Count_11 <- ifelse(as.numeric(aPlcehldr[,24]) == 11 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_11 <- ifelse(as.numeric(aPlcehldr[,23]) == 11 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_12 <- NA
-    aPlcehldr$Count_12 <- ifelse(as.numeric(aPlcehldr[,24]) == 12 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_12 <- ifelse(as.numeric(aPlcehldr[,23]) == 12 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_13 <- NA
-    aPlcehldr$Count_13 <- ifelse(as.numeric(aPlcehldr[,24]) == 13 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_13 <- ifelse(as.numeric(aPlcehldr[,23]) == 13 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_14 <- NA
-    aPlcehldr$Count_14 <- ifelse(as.numeric(aPlcehldr[,24]) == 14 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_14 <- ifelse(as.numeric(aPlcehldr[,23]) == 14 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_15 <- NA
-    aPlcehldr$Count_15 <- ifelse(as.numeric(aPlcehldr[,24]) == 15 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_15 <- ifelse(as.numeric(aPlcehldr[,23]) == 15 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_16 <- NA
-    aPlcehldr$Count_16 <- ifelse(as.numeric(aPlcehldr[,24]) == 16 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_16 <- ifelse(as.numeric(aPlcehldr[,23]) == 16 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_17 <- NA
-    aPlcehldr$Count_17 <- ifelse(as.numeric(aPlcehldr[,24]) == 17 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_17 <- ifelse(as.numeric(aPlcehldr[,23]) == 17 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_18 <- NA
-    aPlcehldr$Count_18 <- ifelse(as.numeric(aPlcehldr[,24]) == 18 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_18 <- ifelse(as.numeric(aPlcehldr[,23]) == 18 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_19 <- NA
-    aPlcehldr$Count_19 <- ifelse(as.numeric(aPlcehldr[,24]) == 19 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_19 <- ifelse(as.numeric(aPlcehldr[,23]) == 19 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_20 <- NA
-    aPlcehldr$Count_20 <- ifelse(as.numeric(aPlcehldr[,24]) == 20 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_20 <- ifelse(as.numeric(aPlcehldr[,23]) == 20 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_21 <- NA
-    aPlcehldr$Count_21 <- ifelse(as.numeric(aPlcehldr[,24]) == 21 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_21 <- ifelse(as.numeric(aPlcehldr[,23]) == 21 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_22 <- NA
-    aPlcehldr$Count_22 <- ifelse(as.numeric(aPlcehldr[,24]) == 22 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_22 <- ifelse(as.numeric(aPlcehldr[,23]) == 22 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_23 <- NA
-    aPlcehldr$Count_23 <- ifelse(as.numeric(aPlcehldr[,24]) == 23 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_23 <- ifelse(as.numeric(aPlcehldr[,23]) == 23 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_24 <- NA
-    aPlcehldr$Count_24 <- ifelse(as.numeric(aPlcehldr[,24]) == 24 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_24 <- ifelse(as.numeric(aPlcehldr[,23]) == 24 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
     aPlcehldr$Count_25 <- NA
-    aPlcehldr$Count_25 <- ifelse(as.numeric(aPlcehldr[,24]) == 25 & aPlcehldr[,23] == "C", 1/Mus_C_nrow, 0)
+    aPlcehldr$Count_25 <- ifelse(as.numeric(aPlcehldr[,23]) == 25 & aPlcehldr[,21] == "C", aPlcehldr$comb_av_total/Meta_A_sum, 0)
 
     datalist_Count[[Filename]] <- aPlcehldr
   }
@@ -612,17 +608,17 @@ aMusALG2_C <- a[grep(paste(MusALG2_C, collapse = "|"), a[,2]), ]
 
 
   total_SNP_a <- c(nt_a1, nt_a2, nt_a3, nt_a4, nt_a5, nt_a6, nt_a7, nt_a8, nt_a9, nt_a10, nt_a11, nt_a12,
-                    nt_a13, nt_a14, nt_a15, nt_a16, nt_a17, nt_a18, nt_a19, nt_a20, nt_a21, nt_a22, nt_a23,
-                    nt_a24, nt_a25)
+                   nt_a13, nt_a14, nt_a15, nt_a16, nt_a17, nt_a18, nt_a19, nt_a20, nt_a21, nt_a22, nt_a23,
+                   nt_a24, nt_a25)
   total_SNP_t <- c(nt_t1, nt_t2, nt_t3, nt_t4, nt_t5, nt_t6, nt_t7, nt_t8, nt_t9, nt_t10, nt_t11, nt_t12,
-                    nt_t13, nt_t14, nt_t15, nt_t16, nt_t17, nt_t18, nt_t19, nt_t20, nt_t21, nt_t22, nt_t23,
-                    nt_t24, nt_t25)
+                   nt_t13, nt_t14, nt_t15, nt_t16, nt_t17, nt_t18, nt_t19, nt_t20, nt_t21, nt_t22, nt_t23,
+                   nt_t24, nt_t25)
   total_SNP_g <- c(nt_g1, nt_g2, nt_g3, nt_g4, nt_g5, nt_g6, nt_g7, nt_g8, nt_g9, nt_g10, nt_g11, nt_g12,
-                    nt_g13, nt_g14, nt_g15, nt_g16, nt_g17, nt_g18, nt_g19, nt_g20, nt_g21, nt_g22, nt_g23,
-                    nt_g24, nt_g25)
+                   nt_g13, nt_g14, nt_g15, nt_g16, nt_g17, nt_g18, nt_g19, nt_g20, nt_g21, nt_g22, nt_g23,
+                   nt_g24, nt_g25)
   total_SNP_c <- c(nt_c1, nt_c2, nt_c3, nt_c4, nt_c5, nt_c6, nt_c7, nt_c8, nt_c9, nt_c10, nt_c11, nt_c12,
-                    nt_c13, nt_c14, nt_c15, nt_c16, nt_c17, nt_c18, nt_c19, nt_c20, nt_c21, nt_c22, nt_c23,
-                    nt_c24, nt_c25)
+                   nt_c13, nt_c14, nt_c15, nt_c16, nt_c17, nt_c18, nt_c19, nt_c20, nt_c21, nt_c22, nt_c23,
+                   nt_c24, nt_c25)
 
   total_pos <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
                  "17", "18", "19", "20", "21", "22", "23", "24", "25")
@@ -641,7 +637,7 @@ aMusALG2_C <- a[grep(paste(MusALG2_C, collapse = "|"), a[,2]), ]
     add_trace(y = total_SNP_g, name = "G", text = total_SNP_g) %>%
     add_trace(y = total_SNP_t, name = "T", text = total_SNP_t) %>%
     add_trace(y = total_SNP_a, name = "A", text = total_SNP_a) %>%
-    layout(xaxis=xlab, yaxis=ylab, barmode = 'stack', title = "Proportion of isomiR single nucleotide variants (Mus)")
+    layout(xaxis=xlab, yaxis=ylab, barmode = 'stack', title = "Proportion of isomiR single nucleotide variants (Meta)")
   p
 }
 
@@ -727,9 +723,9 @@ Mus_nrow <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'count')), na.rm
   SNP_Int_UC <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'U_C')), na.rm = TRUE)
   SNP_Int_GC <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'G_C')), na.rm = TRUE)
 
-#####
-#####
-#####
+  #####
+  #####
+  #####
 
   datalist_Count = list()
 
@@ -776,9 +772,9 @@ Mus_nrow <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'count')), na.rm
   SNP_Neu_UC <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'U_C')), na.rm = TRUE)
   SNP_Neu_GC <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'G_C')), na.rm = TRUE)
 
-#####
-#####
-#####
+  #####
+  #####
+  #####
 
   datalist_Count = list()
 
@@ -809,7 +805,7 @@ Mus_nrow <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'count')), na.rm
     aPlcehldr$G_C <- NA
     aPlcehldr$G_C <- ifelse(aPlcehldr[,22] == "G" & aPlcehldr[,23] == "C" & aPlcehldr[,24] != 0, 1/Mus_nrow, 0)
 
-   datalist_Count[[Filename]] <- aPlcehldr
+    datalist_Count[[Filename]] <- aPlcehldr
   }
 
   SNP_Mus_UA <- as.numeric(do.call(sum, lapply(datalist_Count, '[', 'U_A')), na.rm = TRUE)
@@ -906,4 +902,3 @@ p
 
 p <- plot_ly(x = SNPs, y = Neu_Mus_trace, type = "bar", name = "Neu vs Mus", text = Neu_Mus_trace) %>%
   layout(xaxis=xlab, yaxis=ylab, title = "Proportion of Single Nucleotide Changes: Neuron vs Muscle")
-
