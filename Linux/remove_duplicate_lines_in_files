@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#Remove duplicates (essential)
+
+for file in *.txt
+do
+
+sort $file | uniq > nodup_$file
+
+sort -k 1,1 nodup_$file > 1_nodup_$file
+
+done
+
+mv out* Outfiles
