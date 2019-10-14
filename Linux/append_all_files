@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#Append all files into one larger file
+
+cat Z* > Seq_SNPs
