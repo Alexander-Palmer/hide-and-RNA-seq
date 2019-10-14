@@ -19,4 +19,3 @@ Contains scripts relating to:\
 \
 Alexander Palmer, Zuryn Lab\
 Queensland Brain Institute, Australia
-
