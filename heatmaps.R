@@ -35,9 +35,9 @@ superheat(o, left.label.size = 0.2, bottom.label.size = 0.05, scale = FALSE,
           heat.pal.values = c(0, 0.5, 1), legend.num.ticks = 10, legend.width = 1.8,
           legend.text.size = 11)
           
-#########################
+##########################
 #Output
-#########################
+##########################
 
 #Export manually - metafile is not working
 
