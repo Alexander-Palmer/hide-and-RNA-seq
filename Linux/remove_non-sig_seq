@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#Remove sequences not present in excel file (1cpm threshold)
+
+for file in *.txt
+do
+
+grep -oFf 'Normalised values sequences.txt' $file > C_$file
+
+done
