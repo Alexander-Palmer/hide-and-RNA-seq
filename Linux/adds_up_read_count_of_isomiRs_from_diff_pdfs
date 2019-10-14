@@ -1,0 +1,23 @@
+#!/bin/bash
+
+for file in *.txt
+do
+	sed '/reads/d' $file > 1_$file
+	awk '/\../' 1_$file > i1_$file
+	#sed 's/\./P/g' 1_$file > 2_$file
+	#awk '/P/' 2_$file > 3_$file
+	#sed 's/P/\./g' 3_$file > i1_$file
+	rm 1_$file
+	#rm 2_$file
+	#rm 3_$file
+
+	sed 's/cel/Z/g' i1_$file > i2_$file
+	cat i2_$file | cut -f1 -d"Z" > brushed_$file
+	rm i*
+
+	datamash -st' ' -g 1 sum 2 < brushed_$file > concat_$file
+done
+
+rename 's/.pdf//' *.txt
+mv brushed* Brushed
+mv concat* Brushed/Concatenated
