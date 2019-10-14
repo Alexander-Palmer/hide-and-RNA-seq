@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#Merges processed miRNA sequence with original SNPs for excel cross-reference
+
+cd ../../../Identity/
+cp *.txt-1 ../SNP_seq/Processed/Final
+cd ../SNP_seq/Processed/Final
+
+for file in *.txt
+do
+
+paste -d ',' $file N_$file-1 > Z_$file
+
+done
+
+rm *.txt-1
+
+mv Z* Actual_final
+
