@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#Make string of nucleotides onto separate lines
+
+for file in *.txt
+do
+
+fold -w1 $file > f_$file-1
+mv f_$file-1 Folded
+
+done
