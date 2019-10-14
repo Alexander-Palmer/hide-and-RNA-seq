@@ -1,0 +1,71 @@
+#!/bin/bash
+
+#Extract the byte position of SNPs in the files
+
+for file in O_A*.txt
+do
+
+while read -r line; do grep -aob 'A' <<< "$line"; done < $file > A-$file-1
+sed s/:/""/g A-$file-1 > A-$file-2
+sed s/A/""/g A-$file-2 > A-$file-3
+
+rm A-$file-1
+rm A-$file-2
+
+mv A-$file-3 A-$file-1
+
+mv A-$file-1 Interim2
+
+done
+##################################################################################
+
+for file in O_U*.txt
+do
+
+while read -r line; do grep -aob 'U' <<< "$line"; done < $file > U-$file-1
+sed s/:/""/g U-$file-1 > U-$file-2
+sed s/U/""/g U-$file-2 > U-$file-3
+
+rm U-$file-1
+rm U-$file-2
+
+mv U-$file-3 U-$file-1
+
+mv U-$file-1 Interim2
+
+done
+##################################################################################
+
+for file in O_C*.txt
+do
+
+while read -r line; do grep -aob 'C' <<< "$line"; done < $file > C-$file-1
+sed s/:/""/g C-$file-1 > C-$file-2
+sed s/C/""/g C-$file-2 > C-$file-3
+
+rm C-$file-1
+rm C-$file-2
+
+mv C-$file-3 C-$file-1
+
+mv C-$file-1 Interim2
+
+done
+##################################################################################
+
+for file in O_G*.txt
+do
+
+while read -r line; do grep -aob 'G' <<< "$line"; done < $file > G-$file-1
+sed s/:/""/g G-$file-1 > G-$file-2
+sed s/G/""/g G-$file-2 > G-$file-3
+
+rm G-$file-1
+rm G-$file-2
+
+mv G-$file-3 G-$file-1
+
+mv G-$file-1 Interim2
+
+done
+##################################################################################
