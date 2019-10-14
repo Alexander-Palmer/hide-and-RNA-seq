@@ -44,3 +44,4 @@ y1[y1$X %in% housekeeping6, ]
 aa <- c(rep("A", 3), rep("B", 3), rep("C",2))
 bb <- c(1,1,2,4,1,1,2,2)
 df <-data.frame(aa,bb)
+#
