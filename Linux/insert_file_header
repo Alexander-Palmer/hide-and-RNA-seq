@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#Insert header to all files
+
+for file in Reference*.txt
+do
+
+sed -i '1i genes	A284_1	A284_2	A285_1	A285_2	A286_1	A286_2	A287_1	A287_2	A288_1	A288_2	A289_1	A289_2	A290_1	A290_2	A291_1	A291_2	N2_1	N2_2	genes2	orig_nuc	SNP	Pos	Hairpin_pos' $file
+
+done
