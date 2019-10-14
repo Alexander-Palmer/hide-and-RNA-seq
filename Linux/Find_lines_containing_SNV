@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#Extract the identity of SNPs in the files for appending processed files
+
+for file in *.txt
+do
+
+grep -o 'A' $file > N_M_O_A$file-1
+mv N_M_O_A$file-1 Identity
+
+grep -o 'U' $file > N_M_O_U$file-1
+mv N_M_O_U$file-1 Identity
+
+grep -o 'C' $file > N_M_O_C$file-1
+mv N_M_O_C$file-1 Identity
+
+grep -o 'G' $file > N_M_O_G$file-1
+mv N_M_O_G$file-1 Identity
+
+
+done
+
