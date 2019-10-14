@@ -1,0 +1,124 @@
+#!/bin/bash
+
+#Extract original nucleotide from reference sequence
+
+for file in *.txt
+do
+
+cd Sequence_reference
+cp seq-$file seq1-$file
+mv seq1-$file ..
+cd ..
+
+cd Positions
+cp out_A-$file A1$file
+mv A1$file ..
+cd ..
+
+while read line
+do
+head -c $line seq1-$file | tail -c 1 >> O_A$file
+done < A1$file
+
+#mv O_A$file-1 O_nuc
+rm seq1-$file
+rm A1$file
+
+
+###################################################
+
+cd Sequence_reference
+cp seq-$file seq1-$file
+mv seq1-$file ..
+cd ..
+
+cd Positions
+cp out_U-$file U1$file
+mv U1$file ..
+cd ..
+
+while read line
+do
+head -c $line seq1-$file | tail -c 1 >> O_U$file
+done < U1$file
+
+#mv O_U$file O_nuc
+rm seq1-$file
+rm U1$file
+
+###################################################
+
+cd Sequence_reference
+cp seq-$file seq1-$file
+mv seq1-$file ..
+cd ..
+
+cd Positions
+cp out_C-$file C1$file
+mv C1$file ..
+cd ..
+
+while read line
+do
+head -c $line seq1-$file | tail -c 1 >> O_C$file
+done < C1$file
+
+#mv O_C$file O_nuc
+rm seq1-$file
+rm C1$file
+
+###################################################
+
+cd Sequence_reference
+cp seq-$file seq1-$file
+mv seq1-$file ..
+cd ..
+
+cd Positions
+cp out_G-$file G1$file
+mv G1$file ..
+cd ..
+
+while read line
+do
+head -c $line seq1-$file | tail -c 1 >> O_G$file
+done < G1$file
+
+#mv O_G$file O_nuc
+rm seq1-$file
+rm G1$file
+
+###################################################
+
+done
+
+mv O_A* O_nuc
+mv O_U* O_nuc
+mv O_G* O_nuc
+mv O_C* O_nuc
+
+
+
+#cd Sequence_reference
+#cp seq_3p229.txt 3p229_seq1.txt
+#mv 3p229_seq1.txt ..
+#cd ..
+
+#cd Positions
+#cp G3p229.txt G3p229-1.txt
+#mv G3p229-1.txt ..
+#cd ..
+
+#while IFS= read -r lineNo; do
+#tail -c "$lineNo" 3p229_seq1.txt | head -c1
+#done < G3p229-1.txt > O_G3p229.txt
+
+#mv O_G3p229.txt O_nuc
+#rm 3p229_seq1.txt
+#rm G3p229-1.txt
+
+
+#while read line; do
+#tail -c "$lineNo" seq1-$file | head -c1
+#done < A1$file > O_A$file
+
