@@ -77,8 +77,8 @@ write.table(aIntMus, file="Hairpin table intestine vs muscle.csv", sep = ",", co
 write.table(aIntNeu, file="Hairpin table intestine vs neuron.csv", sep = ",", col.names = NA, qmethod = "double")
 write.table(aNeuMus, file="Hairpin table neuron vs muscle.csv", sep = ",", col.names = NA, qmethod = "double")
 
-#######################################
-#######################################
+########################################
+########################################
 
 miR90_Int <- read.delim("miR-90 Intestine.txt", header=FALSE)$V1
 miR90_Int <- paste0("^",miR90_Int, "$")
