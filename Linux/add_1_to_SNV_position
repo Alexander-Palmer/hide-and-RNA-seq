@@ -1,0 +1,17 @@
+#!/bin/bash
+
+let a=0
+
+for file in *.txt
+do
+
+	while read line; do
+		num1=$line
+		num2=1
+		sum=$(( $num1 + $num2 ))
+		echo $sum >> out_$file
+	done < $file
+
+done
+
+#mv out_* Outpile
