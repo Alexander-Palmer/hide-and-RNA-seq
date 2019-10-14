@@ -1,0 +1,28 @@
+#!/bin/bash
+
+for file in *.txt
+do
+
+sed 's/,.*//' $file > proc_$file
+
+sed -i 's/,/""/g' proc_$file
+
+sed -i -e 's/a/A/g' -e 's/c/C/g' -e 's/t/T/g' -e 's/g/G/g' -e 's/u/T/g' -e 's/U/T/g' proc_$file
+
+mv proc_$file ref_folder
+
+cd ref_folder
+
+cat proc_$file | xargs -Ihello grep hello All_variants3.txt >> out_$file
+
+#grep -f proc_$file All_variants3.txt  >> out_$file
+
+cd ..
+done
+
+#mv out2_$file_n.txt ..
+#cd ..
+#mv out2_$file_n.txt out2_folder
+#cd out2_folder
+
+#And then paste the other file, so that I have greped the correct numbers as well as pasted to the SNP part. The interim process file should be deleted.
