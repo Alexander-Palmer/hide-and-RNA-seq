@@ -210,4 +210,4 @@ abline(h=1.301, col="black", lty=2, lwd = 1)
 
 legend("bottomright", legend=n$miRNA, cex=0.7, fill = c(c[1], c[3], c[4], c[5], c[6], c[7], c[8], c[9], 
                                                         c[10], c[11], c[12], c[13], c[14], c[15]))
-###
+
