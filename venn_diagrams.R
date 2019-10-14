@@ -35,3 +35,5 @@ venn.diagram <- venn.diagram(
   fill = c("red", "yellow"), width = 3000, height =3000, "Venn2.tiff", scaled=TRUE, 
   main = "Distribution of intestinal miRNAs between ARGONAUTES", cex = 1.3, main.cex = 1.3,
   cat.just=list(c(0.5,0) , c(0.5,0)), alpha = c(0.5,0.5), ext.text=FALSE)
+
+##Done!
