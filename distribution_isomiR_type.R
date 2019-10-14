@@ -1,7 +1,7 @@
-#####################
-#Determine frameshift
-#type of isomiRs
-#####################
+######################
+#Determine frameshift#
+#type of isomiRs######
+######################
 
 ############
 #Data input#
