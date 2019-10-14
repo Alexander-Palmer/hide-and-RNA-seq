@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#Remove any miRNAs that are not present in the SNP column (only one is significant, as per FDR < 0.05 edgeR)
+
+mkdir Conjoined
+
+for file in *.txt
+do
+
+#sed -e 's/a/A/g' -e 's/u/T/g' -e 's/c/C/g' -e 's/g/G/g' -e 's/U/T/g' $file > sorted_$file
+#sed -i 's/\.//g' sorted_$file
+
+#sort -k20 out_f_Reference_$file > Reference_sort_$file
+
+join -t $'\t' -o 1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,1.10,1.11,1.12,1.13,1.14,1.15,1.16,1.17,1.18,1.19,2.1,2.2,2.3,2.4,2.5,2.6 <(cut -f1-19 $file | sort -k 1,1) <(cut -f20-25 $file | sort -k 1,1) > match_$file
+
+#sed -i 's/\s/\t/g' new_joined_$file
+
+cut -f1-24 match_$file > match2_$file
+rm match_$file
+mv match2_$file Conjoined
+
+#rm sorted_$file
+#rm Reference_sort_$file
+
+done
+
+#rm out*
