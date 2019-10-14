@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#.csv to tab delim
+
+for file in R_D_*.txt
+do
+
+sed 's|,|\t|g' $file > 3_tabbed_1_nodup_out_$file-1
+sed -i -e 's/a/A/g' -e 's/c/C/g' -e 's/t/T/g' -e 's/g/G/g' -e 's/u/T/g' -e 's/U/T/g' 3_tabbed_1_nodup_out_$file-1
+
+mv 3_tabbed_1_nodup_out_$file-1 Tabbed_yo
+
+done
