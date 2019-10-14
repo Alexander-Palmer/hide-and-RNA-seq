@@ -1,0 +1,10 @@
+#!/bin/bash
+
+for file in *.txt
+do
+
+awk '{gsub(/[.*0-9"seq"]/," "); gsub(/  */," "); print}' $file | sed '/^$/d;s/[[:blank:]]//g' > O_$file
+
+mv O_$file Processed
+
+done
