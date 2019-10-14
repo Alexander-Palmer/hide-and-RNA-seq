@@ -1,0 +1,78 @@
+#!/bin/bash
+
+#Extract the byte position of SNPs in the files
+
+for file in *.txt
+do
+
+grep 'A' $file > A$file
+
+
+while read -r line; do grep -ob 'A' <<< "$line"; done < A$file > A-$file-1
+sed s/:/""/g A-$file-1 > A-$file-2
+sed s/A/""/g A-$file-2 > A-$file-3
+
+rm A-$file-1
+rm A-$file-2
+
+mv A-$file-3 A-$file
+mv A$file SNP_seq
+
+mv A-$file Positions
+
+
+##################################################################################
+
+grep 'U' $file > U$file
+
+
+while read -r line; do grep -ob 'U' <<< "$line"; done < U$file > U-$file-1
+sed s/:/""/g U-$file-1 > U-$file-2
+sed s/U/""/g U-$file-2 > U-$file-3
+
+rm U-$file-1
+rm U-$file-2
+
+mv U-$file-3 U-$file
+mv U$file SNP_seq
+
+mv U-$file Positions
+
+
+###################################################################################
+
+grep 'C' $file > C$file
+
+
+while read -r line; do grep -ob 'C' <<< "$line"; done < C$file > C-$file-1
+sed s/:/""/g C-$file-1 > C-$file-2
+sed s/C/""/g C-$file-2 > C-$file-3
+
+rm C-$file-1
+rm C-$file-2
+
+mv C-$file-3 C-$file
+mv C$file SNP_seq
+
+mv C-$file Positions
+
+
+
+####################################################################################
+
+grep 'G' $file > G$file
+
+
+while read -r line; do grep -ob 'G' <<< "$line"; done < G$file > G-$file-1
+sed s/:/""/g G-$file-1 > G-$file-2
+sed s/G/""/g G-$file-2 > G-$file-3
+
+rm G-$file-1
+rm G-$file-2
+
+mv G-$file-3 G-$file
+mv G$file SNP_seq
+
+mv G-$file Positions
+
+done
