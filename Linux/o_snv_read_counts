@@ -1,0 +1,68 @@
+#!/bin/bash
+
+for file in *.txt
+do
+
+echo -n "A:" >> orig_$file-A ;
+grep -o 'a' $file | wc -l >> orig_$file-A
+
+echo -n "U:" >> orig_$file-A ;
+grep -o 'u' $file | wc -l >> orig_$file-A
+
+echo -n "C:" >> orig_$file-A ;
+grep -o 'c' $file | wc -l >> orig_$file-A
+
+echo -n "G:" >> orig_$file-A ;
+grep -o 'g' $file | wc -l >> orig_$file-A
+
+mv orig_$file-A ../Counts
+
+###########################################
+
+echo -n "A:" >> orig_$file-U ;
+grep -o 'a' $file | wc -l >> orig_$file-U
+
+echo -n "U:" >> orig_$file-U ;
+grep -o 'u' $file | wc -l >> orig_$file-U
+
+echo -n "C:" >> orig_$file-U ;
+grep -o 'c' $file | wc -l >> orig_$file-U
+
+echo -n "G:" >> orig_$file-U ;
+grep -o 'g' $file | wc -l >> orig_$file-U
+
+mv orig_$file-U ../Counts
+
+###########################################
+
+echo -n "A:" >> orig_$file-C ;
+grep -o 'a' $file | wc -l >> orig_$file-C
+
+echo -n "U:" >> orig_$file-C ;
+grep -o 'u' $file | wc -l >> orig_$file-C
+
+echo -n "C:" >> orig_$file-C ;
+grep -o 'c' $file | wc -l >> orig_$file-C
+
+echo -n "G:" >> orig_$file-C ;
+grep -o 'g' $file | wc -l >> orig_$file-C
+
+mv orig_$file-C ../Counts
+
+############################################
+
+echo -n "A:" >> orig_$file-G ;
+grep -o 'a' $file | wc -l >> orig_$file-G
+
+echo -n "U:" >> orig_$file-G ;
+grep -o 'u' $file | wc -l >> orig_$file-G
+
+echo -n "C:" >> orig_$file-G ;
+grep -o 'c' $file | wc -l >> orig_$file-G
+
+echo -n "G:" >> orig_$file-G ;
+grep -o 'g' $file | wc -l >> orig_$file-G
+
+mv orig_$file-G ../Counts
+
+done
