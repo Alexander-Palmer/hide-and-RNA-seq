@@ -1,0 +1,187 @@
+###################
+###################
+
+library(BiocManager)
+BiocManager::install("biomaRt")
+library(biomaRt)
+BiocManager::install("AnnotationDbi")
+library(AnnotationDbi)
+
+mart <- useDataset("celegans_gene_ensembl", useMart("ensembl"))
+
+{
+######################################
+#S00703534############################
+######################################
+
+novmiR_S00703534 <- read.delim("out_novmiR-S00703534.txt", header = F)
+novmiR_S00703534 <- novmiR_S00703534[!(novmiR_S00703534$V3 <= 350),]
+accessions_mRNA <- novmiR_S00703534$V2
+scores <- novmiR_S00703534$V3
+
+###################
+###################
+
+write.table(accessions_mRNA, "accessions_mRNA_novmiR-S00703534.txt", sep = "\t", col.names = NA, quote = FALSE)
+novmiR_S00703534_2 <- read.delim("accessions_WBgene_novmiR-S00703534.txt", header = T)[,c(1,2)]
+novmiR_S00703534_2[,3] <- scores
+accessions_WBgene <- novmiR_S00703534_2[,2]
+
+gene_names <- getBM(filters= "wormbase_gene", attributes= c("wormbase_gene", "chembl", "gene_biotype", "external_gene_name",
+                                                    "description"), values = accessions_WBgene, mart= mart)
+gene_names <- gene_names$external_gene_name
+gene_names <- paste0("^",gene_names,"$")
+
+###################
+###################
+
+gene_scores <- read.delim("gene_scores.txt", header = T)
+known_targets <- gene_scores[grep(paste(gene_names, collapse = "|"), gene_scores[,1]), ]
+
+S00703534_efficiency <- nrow(known_targets) / length(gene_names)
+S00703534_intestine_targets <- sum(known_targets$intestine_all.norm)
+S00703534_neuron_targets <- sum(known_targets$neurons_all.norm)
+S00703534_muscle_targets <- sum(known_targets$muscle_all.norm)
+
+print(c("The percentage of mRNA targets identified by miRanda overlapping tissue-specific genes is:", efficiency))
+print(c("Intestine:", intestine_targets))
+print(c("Neuron:", neuron_targets))
+print(c("Muscle:", muscle_targets))
+
+######################################
+#S00855633############################
+######################################
+
+novmiR_S00855633 <- read.delim("out_novmiR-S00855633.txt", header = F)
+novmiR_S00855633 <- novmiR_S00855633[!(novmiR_S00855633$V3 <= 350),]
+accessions_mRNA <- novmiR_S00855633$V2
+scores <- novmiR_S00855633$V3
+
+###################
+###################
+
+write.table(accessions_mRNA, "accessions_mRNA_novmiR-S00855633.txt", sep = "\t", col.names = NA, quote = FALSE)
+novmiR_S00855633_2 <- read.delim("accessions_WBgene_novmiR-S00855633.txt", header = T)[,c(1,2)]
+novmiR_S00855633_2[,3] <- scores
+accessions_WBgene <- novmiR_S00855633_2[,2]
+
+gene_names <- getBM(filters= "wormbase_gene", attributes= c("wormbase_gene", "chembl", "gene_biotype", "external_gene_name",
+                                                            "description"), values = accessions_WBgene, mart= mart)
+gene_names <- gene_names$external_gene_name
+gene_names <- paste0("^",gene_names,"$")
+
+###################
+###################
+
+gene_scores <- read.delim("gene_scores.txt", header = T)
+known_targets <- gene_scores[grep(paste(gene_names, collapse = "|"), gene_scores[,1]), ]
+
+S00855633_efficiency <- nrow(known_targets) / length(gene_names)
+S00855633_intestine_targets <- sum(known_targets$intestine_all.norm)
+S00855633_neuron_targets <- sum(known_targets$neurons_all.norm)
+S00855633_muscle_targets <- sum(known_targets$muscle_all.norm)
+
+print(c("The percentage of mRNA targets identified by miRanda overlapping tissue-specific genes is:", 
+        S00855633_efficiency))
+print(c("Intestine:", S00855633_intestine_targets))
+print(c("Neuron:", S00855633_neuron_targets))
+print(c("Muscle:", S00855633_muscle_targets))
+
+######################################
+#S01133666############################
+######################################
+
+novmiR_S01133666 <- read.delim("out_novmiR-S01133666.txt", header = F)
+novmiR_S01133666 <- novmiR_S01133666[!(novmiR_S01133666$V3 <= 350),]
+accessions_mRNA <- novmiR_S01133666$V2
+scores <- novmiR_S01133666$V3
+
+###################
+###################
+
+write.table(accessions_mRNA, "accessions_mRNA_novmiR-S01133666.txt", sep = "\t", col.names = NA, quote = FALSE)
+novmiR_S01133666_2 <- read.delim("accessions_WBgene_novmiR-S01133666.txt", header = T)[,c(1,2)]
+novmiR_S01133666_2[,3] <- scores
+accessions_WBgene <- novmiR_S01133666_2[,2]
+
+gene_names <- getBM(filters= "wormbase_gene", attributes= c("wormbase_gene", "chembl", "gene_biotype", "external_gene_name",
+                                                            "description"), values = accessions_WBgene, mart= mart)
+gene_names <- gene_names$external_gene_name
+gene_names <- paste0("^",gene_names,"$")
+
+###################
+###################
+
+gene_scores <- read.delim("gene_scores.txt", header = T)
+known_targets <- gene_scores[grep(paste(gene_names, collapse = "|"), gene_scores[,1]), ]
+
+S01133666_efficiency <- nrow(known_targets) / length(gene_names)
+S01133666_intestine_targets <- sum(known_targets$intestine_all.norm)
+S01133666_neuron_targets <- sum(known_targets$neurons_all.norm)
+S01133666_muscle_targets <- sum(known_targets$muscle_all.norm)
+
+print(c("The percentage of mRNA targets identified by miRanda overlapping tissue-specific genes is:",
+        S01133666_efficiency))
+print(c("Intestine:", S01133666_intestine_targets))
+print(c("Neuron:", S01133666_neuron_targets))
+print(c("Muscle:", S01133666_muscle_targets))
+
+######################################
+######################################
+}
+
+#Intestine_ALG1
+Int_1 <- read.csv("Intestine ALG1 targets abv 0.9.csv", header = T)[,2]
+acc_Int_1 <- gsub("\\s*\\([^\\)]+\\)","",as.character(Int_1))
+Int_2 <- read.csv("Intestine ALG2 targets abv 0.9.csv", header = T)[,2]
+acc_Int_2 <- gsub("\\s*\\([^\\)]+\\)","",as.character(Int_2))
+Neu_1 <- read.csv("Neuron ALG1 targets abv 0.9.csv", header = T)[,2]
+acc_Neu_1 <- gsub("\\s*\\([^\\)]+\\)","",as.character(Neu_1))
+Neu_2 <- read.csv("Neuron ALG2 targets abv 0.9.csv", header = T)[,2]
+acc_Neu_2 <- gsub("\\s*\\([^\\)]+\\)","",as.character(Neu_2))
+Mus_1 <- read.csv("Muscle ALG1 targets abv 0.9.csv", header = T)[,2]
+acc_Mus_1 <- gsub("\\s*\\([^\\)]+\\)","",as.character(Mus_1))
+Mus_2 <- read.csv("Muscle ALG2 targets abv 0.9.csv", header = T)[,2]
+acc_Mus_2 <- gsub("\\s*\\([^\\)]+\\)","",as.character(Mus_2))
+
+gene_names_Int_1 <- getBM(filters= "wormbase_gene", attributes= c("wormbase_gene", "chembl", "gene_biotype", "external_gene_name",
+                                                  "description"), values = acc_Int_1, mart= mart)$external_gene_name
+gene_names_Int_1 <- paste0("^",gene_names_Int_1,"$")
+gene_names_Int_2 <- getBM(filters= "wormbase_gene", attributes= c("wormbase_gene", "chembl", "gene_biotype", "external_gene_name",
+                                                  "description"), values = acc_Int_2, mart= mart)$external_gene_name
+gene_names_Int_2 <- paste0("^",gene_names_Int_2,"$")
+gene_names_Neu_1 <- getBM(filters= "wormbase_gene", attributes= c("wormbase_gene", "chembl", "gene_biotype", "external_gene_name",
+                                                  "description"), values = acc_Neu_1, mart= mart)$external_gene_name
+gene_names_Neu_1 <- paste0("^",gene_names_Neu_1,"$")
+gene_names_Neu_2 <- getBM(filters= "wormbase_gene", attributes= c("wormbase_gene", "chembl", "gene_biotype", "external_gene_name",
+                                                  "description"), values = acc_Neu_2, mart= mart)$external_gene_name
+gene_names_Neu_2 <- paste0("^",gene_names_Neu_2,"$")
+gene_names_Mus_1 <- getBM(filters= "wormbase_gene", attributes= c("wormbase_gene", "chembl", "gene_biotype", "external_gene_name",
+                                                  "description"), values = acc_Mus_1, mart= mart)$external_gene_name
+gene_names_Mus_1 <- paste0("^",gene_names_Mus_1,"$")
+gene_names_Mus_2 <- getBM(filters= "wormbase_gene", attributes= c("wormbase_gene", "chembl", "gene_biotype", "external_gene_name",
+                                                  "description"), values = acc_Mus_2, mart= mart)$external_gene_name
+gene_names_Mus_2 <- paste0("^",gene_names_Mus_2,"$")
+
+all_gene_names <- do.call(c, list(gene_names_Int_1, gene_names_Int_2, gene_names_Neu_1, gene_names_Neu_2, gene_names_Mus_1,
+                  gene_names_Mus_2))
+
+gene_names <- gene_names_Mus$external_gene_name
+gene_names <- paste0("^",gene_names,"$")
+
+###################
+###################
+
+gene_scores <- read.delim("gene_scores.txt", header = T)
+known_targets <- gene_scores[grep(paste(gene_names_Int_1, collapse = "|"), gene_scores[,1]), ]
+
+efficiency <- nrow(known_targets_Int) / length(gene_names)
+intestine_targets <- sum(known_targets$intestine_all.norm)
+neuron_targets <- sum(known_targets$neurons_all.norm)
+muscle_targets <- sum(known_targets$muscle_all.norm)
+
+print(c("The percentage of mRNA targets identified by miRanda overlapping tissue-specific genes is:", 
+        efficiency))
+print(c("Intestine:", intestine_targets))
+print(c("Neuron:", neuron_targets))
+print(c("Muscle:", muscle_targets))
