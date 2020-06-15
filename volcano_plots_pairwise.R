@@ -8,9 +8,11 @@ r <- read.csv("IntALG1 vs MusALG1.csv")
 colnames(r) <- c("ID", "sequence", "logFC", "logCPM", "F", "PValue", "FDR", "miRNA", "ID_2")
 n <- read.delim("Int1_Mus1.txt")
 
+tiff("IsomiR volcano IntALG1 vs MusALG1.tiff", units="in", width=8, height=8, res=300)
+
 plot(r$logFC, jitter(-log10(r$FDR), 5),
      main="isomiRs diff. exp. between IntALG1 & MusALG1", xlim=c(-10,10), ylim=c(0,5),
-     xlab="logFC", ylab="-log10 (adj. p-value)")
+     xlab="logFC", ylab="-log10 (adj. p-value)", cex=0.85)
 
 c <- rainbow(15)
 
@@ -31,21 +33,24 @@ with(subset(r, miRNA == "5p86"), points(logFC, -log10(FDR), pch=20, col=c[14]))
 with(subset(r, miRNA == "5p795"), points(logFC, -log10(FDR), pch=20, col=c[15]))
 with(subset(r, FDR>0.05 ), points(logFC, -log10(FDR), pch=20, col="grey"))
 
-abline(v=0, col="black", lty=1, lwd = 2)
+abline(v=0, col="black", lty=1, lwd = 1)
 abline(h=1.301, col="black", lty=2, lwd = 1)
 
 legend("bottomright", legend=n$miRNA, cex=0.7, fill = c(c[1], c[2], c[5], c[6], c[7], c[8], 
                                                         c[9], c[10], c[11], c[12], c[14], c[15]))
 
+dev.off()
 ############################################################################################
 
 r <- read.csv("IntALG1 vs NeuALG1.csv")
 colnames(r) <- c("ID", "sequence", "logFC", "logCPM", "F", "PValue", "FDR", "miRNA", "ID_2")
 n <- read.delim("Int1_Neu1.txt")
 
+tiff("IsomiR volcano IntALG1 vs NeuALG1.tiff", units="in", width=8, height=8, res=300)
+
 plot(r$logFC, jitter(-log10(r$FDR), 5),
      main="isomiRs diff. exp. between IntALG1 & MusALG1", xlim=c(-10,10), ylim=c(0,5),
-     xlab="logFC", ylab="-log10 (adj. p-value)")
+     xlab="logFC", ylab="-log10 (adj. p-value)", cex=0.85)
 
 c <- rainbow(15)
 
@@ -66,20 +71,24 @@ with(subset(r, miRNA == "5p86"), points(logFC, -log10(FDR), pch=20, col=c[14]))
 with(subset(r, miRNA == "5p795"), points(logFC, -log10(FDR), pch=20, col=c[15]))
 with(subset(r, FDR>0.05 ), points(logFC, -log10(FDR), pch=20, col="grey"))
 
-abline(v=0, col="black", lty=1, lwd = 2)
+abline(v=0, col="black", lty=1, lwd = 1)
 abline(h=1.301, col="black", lty=2, lwd = 1)
 
 legend("bottomright", legend=n$miRNA, cex=0.7, fill = c(c[2], c[3], c[4], c[5], c[8], c[9], 
                                                         c[10], c[12], c[13], c[14]))
+dev.off()
+
 ############################################################################################
 
 r <- read.csv("NeuALG1 vs MusALG1.csv")
 colnames(r) <- c("ID", "sequence", "logFC", "logCPM", "F", "PValue", "FDR", "miRNA", "ID_2")
 n <- read.delim("Neu1_Mus1.txt")
 
+tiff("IsomiR volcano NeuALG1 vs MusALG1.tiff", units="in", width=8, height=8, res=300)
+
 plot(r$logFC, jitter(-log10(r$FDR), 5),
      main="isomiRs diff. exp. between IntALG1 & MusALG1", xlim=c(-10,10), ylim=c(0,5),
-     xlab="logFC", ylab="-log10 (adj. p-value)")
+     xlab="logFC", ylab="-log10 (adj. p-value)", cex=0.85)
 
 c <- rainbow(15)
 
@@ -100,12 +109,13 @@ with(subset(r, miRNA == "5p86"), points(logFC, -log10(FDR), pch=20, col=c[14]))
 with(subset(r, miRNA == "5p795"), points(logFC, -log10(FDR), pch=20, col=c[15]))
 with(subset(r, FDR>0.05 ), points(logFC, -log10(FDR), pch=20, col="grey"))
 
-abline(v=0, col="black", lty=1, lwd = 2)
+abline(v=0, col="black", lty=1, lwd = 1)
 abline(h=1.301, col="black", lty=2, lwd = 1)
 
 legend("bottomright", legend=n$miRNA, cex=0.7, fill = c(c[1], c[3], c[4], c[5], c[6], c[7], c[8], c[9], 
                                                         c[10], c[11], c[12], c[13], c[14], c[15]))
 
+dev.off()
 
 ############################################################################################
 
@@ -113,9 +123,11 @@ r <- read.csv("IntALG2 vs MusALG2.csv")
 colnames(r) <- c("ID", "sequence", "logFC", "logCPM", "F", "PValue", "FDR", "miRNA", "ID_2")
 n <- read.delim("Int2_Mus2.txt")
 
+tiff("IsomiR volcano IntALG2 vs MusALG2.tiff", units="in", width=8, height=8, res=300)
+
 plot(r$logFC, jitter(-log10(r$FDR), 5),
      main="isomiRs diff. exp. between IntALG1 & MusALG1", xlim=c(-10,10), ylim=c(0,5),
-     xlab="logFC", ylab="-log10 (adj. p-value)")
+     xlab="logFC", ylab="-log10 (adj. p-value)", cex=0.85)
 
 c <- rainbow(15)
 
@@ -136,11 +148,12 @@ with(subset(r, miRNA == "5p86"), points(logFC, -log10(FDR), pch=20, col=c[14]))
 with(subset(r, miRNA == "5p795"), points(logFC, -log10(FDR), pch=20, col=c[15]))
 with(subset(r, FDR>0.05 ), points(logFC, -log10(FDR), pch=20, col="grey"))
 
-abline(v=0, col="black", lty=1, lwd = 2)
+abline(v=0, col="black", lty=1, lwd = 1)
 abline(h=1.301, col="black", lty=2, lwd = 1)
 
 legend("bottomright", legend=n$miRNA, cex=0.7, fill = c(c[1], c[5], c[7], c[8], c[9], c[10], 
                                                         c[11], c[12], c[14], c[15]))
+dev.off()
 
 ############################################################################################
 
@@ -148,9 +161,11 @@ r <- read.csv("IntALG2 vs NeuALG2.csv")
 colnames(r) <- c("ID", "sequence", "logFC", "logCPM", "F", "PValue", "FDR", "miRNA", "ID_2")
 n <- read.delim("Int2_Neu2.txt")
 
+tiff("IsomiR volcano IntALG2 vs NeuALG2.tiff", units="in", width=8, height=8, res=300)
+
 plot(r$logFC, jitter(-log10(r$FDR), 5),
      main="isomiRs diff. exp. between IntALG1 & MusALG1", xlim=c(-10,10), ylim=c(0,5),
-     xlab="logFC", ylab="-log10 (adj. p-value)")
+     xlab="logFC", ylab="-log10 (adj. p-value)", cex=0.85)
 
 c <- rainbow(15)
 
@@ -171,20 +186,24 @@ with(subset(r, miRNA == "5p86"), points(logFC, -log10(FDR), pch=20, col=c[14]))
 with(subset(r, miRNA == "5p795"), points(logFC, -log10(FDR), pch=20, col=c[15]))
 with(subset(r, FDR>0.05 ), points(logFC, -log10(FDR), pch=20, col="grey"))
 
-abline(v=0, col="black", lty=1, lwd = 2)
+abline(v=0, col="black", lty=1, lwd = 1)
 abline(h=1.301, col="black", lty=2, lwd = 1)
 
 legend("bottomright", legend=n$miRNA, cex=0.7, fill = c(c[3], c[4], c[5], c[6], c[8], c[9], 
                                                         c[12], c[13]))
+dev.off()
+
 ############################################################################################
 
 r <- read.csv("NeuALG2 vs MusALG2.csv")
 colnames(r) <- c("ID", "sequence", "logFC", "logCPM", "F", "PValue", "FDR", "miRNA", "ID_2")
 n <- read.delim("Neu2_Mus2.txt")
 
+tiff("IsomiR volcano NeuALG2 vs MusALG2.tiff", units="in", width=8, height=8, res=300)
+
 plot(r$logFC, jitter(-log10(r$FDR), 5),
      main="isomiRs diff. exp. between IntALG1 & MusALG1", xlim=c(-10,10), ylim=c(0,5),
-     xlab="logFC", ylab="-log10 (adj. p-value)")
+     xlab="logFC", ylab="-log10 (adj. p-value)", cex=0.85)
 
 c <- rainbow(15)
 
@@ -205,9 +224,10 @@ with(subset(r, miRNA == "5p86"), points(logFC, -log10(FDR), pch=20, col=c[14]))
 with(subset(r, miRNA == "5p795"), points(logFC, -log10(FDR), pch=20, col=c[15]))
 with(subset(r, FDR>0.05 ), points(logFC, -log10(FDR), pch=20, col="grey"))
 
-abline(v=0, col="black", lty=1, lwd = 2)
+abline(v=0, col="black", lty=1, lwd = 1)
 abline(h=1.301, col="black", lty=2, lwd = 1)
 
 legend("bottomright", legend=n$miRNA, cex=0.7, fill = c(c[1], c[3], c[4], c[5], c[6], c[7], c[8], c[9], 
                                                         c[10], c[11], c[12], c[13], c[14], c[15]))
 
+dev.off()
