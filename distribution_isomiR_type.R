@@ -17,11 +17,11 @@ sig.genes <- intersect(sig.genes, miR.genes)
 sig.genes <- paste0("^",sig.genes,"$")
 
 meta.table[paste("comb_reads")] <- ((meta.table[["A284_1"]] + meta.table[["A284_2"]]) / 2) + 
-                                   ((meta.table[["A285_1"]] + meta.table[["A285_2"]]) / 2) +
-                                   ((meta.table[["A286_1"]] + meta.table[["A286_2"]]) / 2) + 
-                                   ((meta.table[["A287_1"]] + meta.table[["A287_2"]]) / 2) +
-                                   ((meta.table[["A290_1"]] + meta.table[["A290_2"]]) / 2) + 
-                                   ((meta.table[["A291_1"]] + meta.table[["A291_2"]]) / 2)
+  ((meta.table[["A285_1"]] + meta.table[["A285_2"]]) / 2) +
+  ((meta.table[["A286_1"]] + meta.table[["A286_2"]]) / 2) + 
+  ((meta.table[["A287_1"]] + meta.table[["A287_2"]]) / 2) +
+  ((meta.table[["A290_1"]] + meta.table[["A290_2"]]) / 2) + 
+  ((meta.table[["A291_1"]] + meta.table[["A291_2"]]) / 2)
 
 
 
@@ -70,7 +70,10 @@ for (designation in canon_miRNA_miRNA) {
   sample[paste('3_ext')] <- 0
   sample[paste('5_red')] <- 0
   sample[paste('3_red')] <- 0
-  sample[paste('Mixed')] <- 0
+  sample[paste('5_ext_3_ext')] <- 0
+  sample[paste('5_ext_3_red')] <- 0
+  sample[paste('5_red_3_ext')] <- 0
+  sample[paste('5_red_3_red')] <- 0
   sample[paste('SNP')] <- 0
   sample[paste('Substitution')] <- 0
   sample[paste('Canonical')] <- 0
@@ -78,25 +81,27 @@ for (designation in canon_miRNA_miRNA) {
   sample$h_proximal <- sapply(sample$h_seq, h_count_p)
   sample$h_distal <- sapply(sample$h_seq, h_count_d)
   
-  sample[,27] <- ifelse(sample[,25] < canon_proximal & sample[,26] == canon_distal, sample$comb_reads, 0)
-  sample[,28] <- ifelse(sample[,26] < canon_distal & sample[,25] == canon_proximal, sample$comb_reads, 0)
-  sample[,29] <- ifelse(sample[,25] > canon_proximal & sample[,26] == canon_distal, sample$comb_reads, 0)
-  sample[,30] <- ifelse(sample[,26] > canon_distal & sample[,25] == canon_proximal, sample$comb_reads, 0)
-  sample[,31] <- ifelse(sample[,25] > canon_proximal & sample[,26] > canon_distal |
-                        sample[,25] > canon_proximal & sample[,26] < canon_distal |
-                        sample[,25] < canon_proximal & sample[,26] > canon_distal |
-                        sample[,25] < canon_proximal & sample[,26] < canon_distal, sample$comb_reads, 0)
-  sample[,32] <- ifelse(grepl("A", sample[,21]) | grepl("U", sample[,21]) |
-                        grepl("G", sample[,21]) | grepl("C", sample[,21]), 1, 0) #do not change from boolean
-  sample[,33] <- ifelse(sample[,25] == canon_proximal & sample[,26] == canon_distal & sample[32] == 1, sample$comb_reads, 0)
-  sample[,34] <- ifelse(sample[,25] == canon_proximal & sample[,26] == canon_distal & sample[32] == 0, sample$comb_reads, 0) #sample$comb_reads
-
+  sample[,27] <- ifelse(sample[,25] < canon_proximal & sample[,26] == canon_distal, sample$comb_reads, 0) #5 ext
+  sample[,28] <- ifelse(sample[,26] < canon_distal & sample[,25] == canon_proximal, sample$comb_reads, 0) #3 ext
+  sample[,29] <- ifelse(sample[,25] > canon_proximal & sample[,26] == canon_distal, sample$comb_reads, 0) #5 red
+  sample[,30] <- ifelse(sample[,26] > canon_distal & sample[,25] == canon_proximal, sample$comb_reads, 0) #3 red
+  sample[,31] <- ifelse(sample[,25] < canon_proximal & sample[,26] < canon_distal, sample$comb_reads, 0)  #5 ext 3 ext
+  sample[,32] <- ifelse(sample[,25] < canon_proximal & sample[,26] > canon_distal, sample$comb_reads, 0)  #5 ext 3 red                        
+  sample[,33] <- ifelse(sample[,25] > canon_proximal & sample[,26] < canon_distal, sample$comb_reads, 0)  #5 red 3 ext                        
+  sample[,34] <- ifelse(sample[,25] > canon_proximal & sample[,26] > canon_distal, sample$comb_reads, 0)  #5 red 3 red
+  sample[,35] <- ifelse(grepl("A", sample[,21]) | grepl("U", sample[,21]) |
+                          grepl("G", sample[,21]) | grepl("C", sample[,21]), 1, 0) #do not change from boolean
+  sample[,36] <- ifelse(sample[,25] == canon_proximal & sample[,26] == canon_distal & sample[35] == 1, sample$comb_reads, 0)
+  sample[,37] <- ifelse(sample[,25] == canon_proximal & sample[,26] == canon_distal & sample[35] == 0, sample$comb_reads, 0) #sample$comb_reads
+  
   Ext.Red[[designation]] <- sample
 }
 
 Ext.Red <- do.call(rbind.data.frame, Ext.Red)
 Ext.Red <- Ext.Red[grep(paste(sig.genes, collapse = "|"), Ext.Red[,1]), ] #For previously defined list
 #Ext.Red <- Ext.Red[grep("^5p71$", Ext.Red[,23]), ] #For specific miRNAs
+
+write.table(Ext.Red, "META_Ext_Red.txt", sep="\t", col.names = NA, quote = FALSE)
 
 s_ext_5 <- sum(Ext.Red$`5_ext`)
 s_ext_3 <- sum(Ext.Red$`3_ext`)
