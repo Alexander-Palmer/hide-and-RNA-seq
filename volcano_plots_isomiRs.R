@@ -50,13 +50,13 @@ comb2 <- rbind(int_alg1, int_alg2, neu_alg1, neu_alg2, mus_alg1, mus_alg2)
 ########
 #Plot_1#
 ########
-
-plot(comb2$logFC, -log10(comb2$pval),
-     main="Total miRNAs", xlim=c(0,11), ylim=c(0,11),
+tiff("IsomiR scatterplot all isomiRs.tiff", units="in", width=9, height=9, res=400)
+plot(comb2$logFC, -log10(comb2$pval), cex = 0.85,
+     main="Total miRNAs", xlim=c(0,11), ylim=c(0,13),
      xlab="log(FC)", ylab="-log10 (p-value)")
-with(subset(comb2, pval<0.05 ), points(logFC, -log10(pval), pch=20, col="green"))
-with(subset(comb2, FDR<0.05 ), points(logFC, -log10(pval), pch=20, col="purple"))
-
+with(subset(comb2, pval<0.05 & abs(logFC)>2 ), points(logFC, -log10(pval), pch=20, col="green"))
+with(subset(comb2, FDR<0.05 & abs(logFC)>2 ), points(logFC, -log10(pval), pch=20, col="purple"))
+dev.off()
 
 
 rm(list=ls())
@@ -65,84 +65,95 @@ rm(list=ls())
 #Data_input_2#
 ##############
 
-IntALG1 <- read.csv("IntALG1 vs N2 Top - Pos.csv")
+IntALG1 <- read.csv("IntALG1 vs N2 Top - Pos2.csv")
 colnames(IntALG1) <- c("X", "sequence", "logFC", "logCPM", "F", "pval", "fdr")
-IntALG2 <- read.csv("IntALG2 vs N2 Top - Pos.csv")
+IntALG2 <- read.csv("IntALG2 vs N2 Top - Pos2.csv")
 colnames(IntALG2) <- c("X", "sequence", "logFC", "logCPM", "F", "pval", "fdr")
-NeuALG1 <- read.csv("NeuALG1 vs N2 Top - Pos.csv")
+NeuALG1 <- read.csv("NeuALG1 vs N2 Top - Pos2.csv")
 colnames(NeuALG1) <- c("X", "sequence", "logFC", "logCPM", "F", "pval", "fdr")
-NeuALG2 <- read.csv("NeuALG2 vs N2 Top - Pos.csv")
+NeuALG2 <- read.csv("NeuALG2 vs N2 Top - Pos2.csv")
 colnames(NeuALG2) <- c("X", "sequence", "logFC", "logCPM", "F", "pval", "fdr")
-MusALG1 <- read.csv("MusALG1 vs N2 Top - Pos.csv")
+MusALG1 <- read.csv("MusALG1 vs N2 Top - Pos2.csv")
 colnames(MusALG1) <- c("X", "sequence", "logFC", "logCPM", "F", "pval", "fdr")
-MusALG2 <- read.csv("MusALG2 vs N2 Top - Pos.csv")
+MusALG2 <- read.csv("MusALG2 vs N2 Top - Pos2.csv")
 colnames(MusALG2) <- c("X", "sequence", "logFC", "logCPM", "F", "pval", "fdr")
 
 ########
 #Plot_2#
 ########
 {
-  plot(IntALG1$logFC, -log10(IntALG1$fdr),
+  tiff("IsomiR scatterplot IntALG1.tiff", units="in", width=6, height=6, res=300)
+  plot(IntALG1$logFC, -log10(IntALG1$fdr), cex = 0.85,
        main="Intestine ALG1 Volcano Plot", xlim=c(0,11.1), ylim=c(0,4),
        xlab="log(FC)", ylab="-log10 (p-value)")
   
-  with(subset(IntALG1, fdr<0.05), points(logFC, -log10(fdr), pch=20, col="purple"))
+  with(subset(IntALG1, fdr<0.05 & abs(logFC)>2 ), points(logFC, -log10(fdr), pch=20, col="purple"))
   #with(subset(IntALG1, abs(logFC)>5), points(logFC, -log10(pval), pch=20, col="orange"))
   #with(subset(IntALG1, pval<9e-01 & abs(logFC)>1), points(logFC, -log10(pval), pch=20, col="green"))
   #with(subset(IntALG1, pval<9e-01 & abs(logFC)>1), textxy(logFC, -log10(pval), labs=miRNA, cex=0.55))
+  tiff("IsomiR scatterplot IntALG1.tiff", units="in", width=6, height=6, res=300)
   
-  plot(IntALG2$logFC, -log10(IntALG2$fdr),
+  tiff("IsomiR scatterplot IntALG2.tiff", units="in", width=6, height=6, res=300)
+  plot(IntALG2$logFC, -log10(IntALG2$fdr), cex = 0.85,
        main="Intestine ALG2 Volcano Plot", xlim=c(0,11.1), ylim=c(0,4),
        xlab="log(FC)", ylab="-log10 (p-value)")
   
-  with(subset(IntALG2, fdr<0.05 ), points(logFC, -log10(fdr), pch=20, col="purple"))
+  with(subset(IntALG2, fdr<0.05 & abs(logFC)>2 ), points(logFC, -log10(fdr), pch=20, col="purple"))
   #with(subset(IntALG2, abs(logFC)>5), points(logFC, -log10(pval), pch=20, col="orange"))
   #with(subset(IntALG2, pval<9e-01 & abs(logFC)>1), points(logFC, -log10(pval), pch=20, col="green"))
   #with(subset(IntALG2, pval<9e-01 & abs(logFC)>1), textxy(logFC, -log10(pval), labs=miRNA, cex=0.55))
+  dev.off()
   
   ###
   ###
   ###
   
-  plot(NeuALG1$logFC, -log10(NeuALG1$fdr),
+  tiff("IsomiR scatterplot NeuALG1.tiff", units="in", width=6, height=6, res=300)
+  plot(NeuALG1$logFC, -log10(NeuALG1$fdr), cex = 0.85,
        main="Neuron ALG1 Volcano Plot", xlim=c(0,11.1), ylim=c(0,4),
-       xlab="log(FC)", ylab="-log10 (p-value)")
+       xlab="log(FC)", ylab="-log10 (p-value)", )
   
-  with(subset(NeuALG1, fdr<0.05 ), points(logFC, -log10(fdr), pch=20, col="purple"))
+  with(subset(NeuALG1, fdr<0.05 & abs(logFC)>2 ), points(logFC, -log10(fdr), pch=20, col="purple"))
   #with(subset(NeuALG1, abs(logFC)>5), points(logFC, -log10(pval), pch=20, col="orange"))
   #with(subset(NeuALG1, pval<9e-01 & abs(logFC)>1), points(logFC, -log10(pval), pch=20, col="green"))
   #with(subset(NeuALG1, pval<9e-01 & abs(logFC)>1), textxy(logFC, -log10(pval), labs=miRNA, cex=0.55))
+  dev.off()
   
-  plot(NeuALG2$logFC, -log10(NeuALG2$fdr),
+  tiff("IsomiR scatterplot NeuALG2.tiff", units="in", width=6, height=6, res=300)
+  plot(NeuALG2$logFC, -log10(NeuALG2$fdr), cex = 0.85,
        main="Neuron ALG2 Volcano Plot", xlim=c(0,11.1), ylim=c(0,4),
        xlab="log(FC)", ylab="-log10 (p-value)")
   
-  with(subset(NeuALG2, fdr<0.05 ), points(logFC, -log10(fdr), pch=20, col="purple"))
+  with(subset(NeuALG2, fdr<0.05 & abs(logFC)>2 ), points(logFC, -log10(fdr), pch=20, col="purple"))
   #with(subset(NeuALG2, abs(logFC)>5), points(logFC, -log10(pval), pch=20, col="orange"))
   #with(subset(NeuALG2, pval<9e-01 & abs(logFC)>1), points(logFC, -log10(pval), pch=20, col="green"))
   #with(subset(NeuALG2, pval<9e-01 & abs(logFC)>1), textxy(logFC, -log10(pval), labs=miRNA, cex=0.55))
+  dev.off()
   
   ###
   ###
   ###
   
-  plot(MusALG1$logFC, -log10(MusALG1$fdr),
+  tiff("IsomiR scatterplot MusALG1.tiff", units="in", width=6, height=6, res=300)
+  plot(MusALG1$logFC, -log10(MusALG1$fdr), cex = 0.85,
        main="Muscle ALG1 Volcano Plot", xlim=c(0,11.1), ylim=c(0,4),
        xlab="log(FC)", ylab="-log10 (p-value)")
   
-  with(subset(MusALG1, fdr<0.05 ), points(logFC, -log10(fdr), pch=20, col="purple"))
+  with(subset(MusALG1, fdr<0.05 & abs(logFC)>2 ), points(logFC, -log10(fdr), pch=20, col="purple"))
   #with(subset(MusALG1, abs(logFC)>5), points(logFC, -log10(pval), pch=20, col="orange"))
   #with(subset(MusALG1, pval<9e-01 & abs(logFC)>1), points(logFC, -log10(pval), pch=20, col="green"))
   #with(subset(MusALG1, pval<9e-01 & abs(logFC)>1), textxy(logFC, -log10(pval), labs=miRNA, cex=0.55))
+  dev.off()
   
-  plot(MusALG2$logFC, -log10(MusALG2$fdr),
+  tiff("IsomiR scatterplot MusALG2.tiff", units="in", width=6, height=6, res=300)
+  plot(MusALG2$logFC, -log10(MusALG2$fdr), cex = 0.85,
        main="Muscle ALG2 Volcano Plot", xlim=c(0,11.1), ylim=c(0,4),
        xlab="log(FC)", ylab="-log10 (p-value)")
   
-  with(subset(MusALG2, fdr<0.05 ), points(logFC, -log10(fdr), pch=20, col="purple"))
+  with(subset(MusALG2, fdr<0.05 & abs(logFC)>2 ), points(logFC, -log10(fdr), pch=20, col="purple"))
   #with(subset(MusALG2, abs(logFC)>5), points(logFC, -log10(pval), pch=20, col="orange"))
   #with(subset(MusALG2, pval<9e-01 & abs(logFC)>1), points(logFC, -log10(pval), pch=20, col="green"))
   #with(subset(MusALG2, pval<9e-01 & abs(logFC)>1), textxy(logFC, -log10(pval), labs=miRNA, cex=0.55))
-  
+  dev.off()
 }
 #############################################################################################
