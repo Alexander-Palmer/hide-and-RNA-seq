@@ -1,0 +1,121 @@
+#Find difference in expression between icl-1 polysome datasets
+#Library
+library(biomaRt)
+
+#Functions
+outersect <- function(x, y) {
+  sort(c(setdiff(x, y),
+         setdiff(y, x)))
+}
+
+#Data input
+table_997x1045 <- read.csv("997x1045_pval.csv")
+table_997x1046 <- read.csv("997x1046_pval.csv")
+table_998x1047 <- read.csv("998x1047_pval.csv")
+
+{
+  ind <- (table_997x1045$logFC > 0)
+  pos_997x1045 <- table_997x1045[ind,]
+  neg_997x1045 <- table_997x1045[!ind,]
+
+  ind <- (table_997x1046$logFC > 0)
+  pos_997x1046 <- table_997x1046[ind,]
+  neg_997x1046 <- table_997x1046[!ind,]
+
+  ind <- (table_998x1047$logFC > 0)
+  pos_998x1047 <- table_998x1047[ind,]
+  neg_998x1047 <- table_998x1047[!ind,]
+  
+  rm(ind)
+  
+  pos_997x1045 <- pos_997x1045[,2]
+  pos_997x1046 <- pos_997x1046[,2]
+  pos_998x1047 <- pos_998x1047[,2]
+
+  neg_997x1045 <- neg_997x1045[,2]
+  neg_997x1046 <- neg_997x1046[,2]
+  neg_998x1047 <- neg_998x1047[,2]
+}
+ 
+#Data processing
+common_all_pos <- intersect(intersect(pos_997x1045, pos_997x1046), pos_998x1047)
+common_all_neg <- intersect(intersect(neg_997x1045, neg_997x1046), neg_998x1047)
+common_all <- intersect(common_all_pos, common_all_neg)
+
+#Find differences between tissue PST-1
+{
+  common_int_poly <- paste0("^", intersect(table_997x1045[,2], table_997x1046[,2]), "$")
+  unique_int_poly <- paste0("^", outersect(table_997x1045[,2], table_997x1046[,2]), "$")
+
+  common_int_poly_neu <- table_997x1045[grep(paste(common_int_poly, collapse = "|"), 
+                                                   table_997x1045[,2]), ]
+  unique_int_poly_neu <- table_997x1045[grep(paste(unique_int_poly, collapse = "|"), 
+                                                   table_997x1045[,2]), ]
+  common_int_poly_int <- table_997x1046[grep(paste(common_int_poly, collapse = "|"), 
+                                                   table_997x1046[,2]), ]
+  unique_int_poly_int <- table_997x1046[grep(paste(unique_int_poly, collapse = "|"), 
+                                                   table_997x1046[,2]), ]
+}
+
+#Find differences between tissue polysome
+{
+  common_int_vs_neu_poly <- paste0("^", intersect(table_997x1046[,2], table_998x1047[,2]), "$")
+  unique_int_vs_neu_poly <- paste0("^", outersect(table_997x1046[,2], table_998x1047[,2]), "$")
+  
+  common_int_vs_neu_poly_int <- table_997x1046[grep(paste(common_int_vs_neu_poly, collapse = "|"), 
+                                                          table_997x1046[,2]), ]
+  unique_int_vs_neu_poly_int <- table_997x1046[grep(paste(unique_int_vs_neu_poly, collapse = "|"), 
+                                                          table_997x1046[,2]), ]
+  common_int_vs_neu_poly_neu <- table_998x1047[grep(paste(common_int_vs_neu_poly, collapse = "|"), 
+                                                          table_998x1047[,2]), ]
+  unique_int_vs_neu_poly_neu <- table_998x1047[grep(paste(unique_int_vs_neu_poly, collapse = "|"), 
+                                                          table_998x1047[,2]), ]
+}
+
+#Annotate genes
+mart <- useDataset("celegans_gene_ensembl", useMart("ensembl"))
+{  
+  genes_unique_int_poly_neu <- getBM(filters = "wormbase_gene", attributes = c("wormbase_gene", "gene_biotype",
+                                                                               "external_gene_name", "chromosome_name", 
+                                                                               "description"),
+                                     values = unique_int_poly_neu[,2], mart = mart)
+  genes_unique_int_poly_int <- getBM(filters = "wormbase_gene", attributes = c("wormbase_gene", "gene_biotype",
+                                                                               "external_gene_name", "chromosome_name", 
+                                                                               "description"),
+                                     values = unique_int_poly_int[,2], mart = mart)
+  genes_unique_int_vs_neu_poly_neu <- getBM(filters = "wormbase_gene", attributes = c("wormbase_gene", "gene_biotype",
+                                                                                      "external_gene_name", "chromosome_name", 
+                                                                                      "description"),
+                                            values = unique_int_vs_neu_poly_neu[,2], mart = mart)
+  genes_unique_int_vs_neu_poly_int <- getBM(filters = "wormbase_gene", attributes = c("wormbase_gene", "gene_biotype",
+                                                                                      "external_gene_name", "chromosome_name", 
+                                                                                      "description"),
+                                            values = unique_int_vs_neu_poly_int[,2], mart = mart)
+}
+
+{  
+colnames(genes_unique_int_poly_neu) <- c("genes", "gene_biotype", "external_gene_name", "chromosome", "description")
+  colnames(genes_unique_int_poly_int) <- c("genes", "gene_biotype", "external_gene_name", "chromosome", "description")
+  colnames(genes_unique_int_vs_neu_poly_neu) <- c("genes", "gene_biotype", "external_gene_name", "chromosome", "description")
+  colnames(genes_unique_int_vs_neu_poly_int) <- c("genes", "gene_biotype", "external_gene_name", "chromosome", "description")
+}
+#Merge output
+{  
+  comb_unique_int_poly_neu <- merge(unique_int_poly_neu[,c(2:3, 6)], 
+                                    genes_unique_int_poly_neu, by = "genes")
+  comb_unique_int_poly_int <- merge(unique_int_poly_int[,c(2:3, 6)], 
+                                    genes_unique_int_poly_int, by = "genes")
+  comb_unique_int_vs_neu_poly_neu <- merge(unique_int_vs_neu_poly_neu[,c(2:3, 6)], 
+                                           genes_unique_int_vs_neu_poly_neu, by = "genes")
+  comb_unique_int_vs_neu_poly_int <- merge(unique_int_vs_neu_poly_int[,c(2:3, 6)], 
+                                           genes_unique_int_vs_neu_poly_int, by = "genes")
+}
+
+#Print output
+{
+  write.table(comb_unique_int_poly_neu, "Genes regulated by PST-1 - neurons.csv", sep=",", col.names = NA, quote = FALSE)
+  write.table(comb_unique_int_poly_int, "Genes regulated by PST-1 - intestine.csv", sep=",", col.names = NA, quote = FALSE)
+  
+  write.table(comb_unique_int_vs_neu_poly_neu, "Polysome genes - neurons.csv", sep=",", col.names = NA, quote = FALSE)
+  write.table(comb_unique_int_vs_neu_poly_int, "Polysome genes - intestine.csv", sep=",", col.names = NA, quote = FALSE)
+}
