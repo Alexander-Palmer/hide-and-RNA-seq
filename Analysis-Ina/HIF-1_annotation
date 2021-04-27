@@ -1,0 +1,134 @@
+###Ina's sequencing data analysis
+###
+###Annotate ChIP-seq dataset using a current annotation file. Packages featureCounts and edgeR will be used.
+###
+
+##Packages
+if (!requireNamespace("BiocManager", quietly = TRUE))
+install.packages("BiocManager")
+BiocManager::install("Rsubread")
+BiocManager::install("edgeR")
+BiocManager::install("biomaRt")
+library(Rsubread)
+library(edgeR)
+library(biomaRt)
+
+##File import
+proc.files <- c("HIF-1_OR3349_WA_L4_Input_NA_Rep1.bam", "HIF-1_OR3349_WA_L4_IP_GoatV-aGFP_Rep1.bam",
+                "HIF-1_OR3349_WA_L4_IP_GoatV-aGFP_Rep2.bam", "HIF-1_OR3350_WA_L4_Input_NA_Rep1.bam",
+                "HIF-1_OR3350_WA_L4_IP_GoatV-aGFP_Rep1.bam", "HIF-1_OR3350_WA_L4_IP_GoatV-aGFP_Rep2.bam")
+                
+##featureCounts analysis
+#Annotate reads
+meta_results_cel11_WS255 <-featureCounts(files = proc.files,
+                                   annot.ext = "c_elegans.PRJNA13758.WS255.canonical_geneset.gtf",
+                                   isGTFAnnotationFile = TRUE, GTF.featureType = "gene", GTF.attrType = "gene_id",
+                                   isPairedEnd = T, nthreads = 18, useMetaFeatures = T,
+                                   genome = "c_elegans.PRJNA13758.WS255.genomic.fa",
+                                   juncCounts = T, allowMultiOverlap = T)
+#Create counts table
+write.table(x = data.frame(meta_results_cel11_new_everything$annotation [,c("Chr", "Start", "End", "Length", "Strand")],
+                           meta_results_cel11_new_everything$counts, stringsAsFactors = FALSE),
+            file = "HIF_seq_counts.txt", quote = FALSE, sep = "\t")
+
+##edgeR analysis
+#File import
+HIF_seq_clean <- read.csv('HIF_seq_clean.csv', header = T)
+HIF_seq_identity <- read.csv('HIF_seq_identity.csv', header = T)
+
+#Processing
+HIF_seq_clean <- as.data.frame(HIF_seq_clean)
+HIF_seq_clean[is.na(HIF_seq_clean)] <- 0
+sequences <- HIF_seq_identity$GeneID
+levels <- letters[1:6]
+levels[c(1:2)] <- "Control"
+levels[c(3:4)] <- "OR3349"
+levels[c(5:6)] <- "OR3350"
+
+#Processing 2
+HIF_seq_clean <- DGEList(counts=HIF_seq_clean, group=levels, genes=sequences)
+keep <- rowSums(cpm(HIF_seq_clean)>1) >= 1
+HIF_seq_clean <- HIF_seq_clean[keep, , keep.lib.sizes=FALSE]
+HIF_seq_clean <- calcNormFactors(HIF_seq_clean)
+HIF_seq_clean <- estimateDisp(HIF_seq_clean)
+design <- model.matrix(~0+levels, data=HIF_seq_clean$samples)
+colnames(design) <- levels(HIF_seq_clean$samples$levels)
+fit <- glmQLFit(HIF_seq_clean, design)
+
+#Multiple comparisons
+#Control_vs_OR3349
+Plcehldr <- glmQLFTest(fit, contrast=c(1,-1,0))
+control_OR3349_a <- topTags(Plcehldr, n=Inf)
+control_OR3349_a <- as.data.frame(control_OR3349_a)
+control_OR3349_b <- topTags(Plcehldr, sort.by = "logFC", n=Inf, p.value=0.05)
+control_OR3349_b <- as.data.frame(control_OR3349_b)
+
+#Control_vs_OR3350
+Plcehldr <- glmQLFTest(fit, contrast=c(1,0,-1))
+control_OR3350_a <- topTags(Plcehldr, n=Inf)
+control_OR3350_a <- as.data.frame(control_OR3350_a)
+control_OR3350_b <- topTags(Plcehldr, sort.by = "logFC", n=Inf, p.value=0.05)
+control_OR3350_b <- as.data.frame(control_OR3350_b)
+
+#OR3349_vs_OR3350
+Plcehldr <- glmQLFTest(fit, contrast=c(0,1,-1))
+OR3349_OR3350_a <- topTags(Plcehldr, n=Inf)
+OR3349_OR3350_a <- as.data.frame(OR3349_OR3350_a)
+OR3349_OR3350_b <- topTags(Plcehldr, sort.by = "logFC", n=Inf, p.value=0.05)
+OR3349_OR3350_b <- as.data.frame(OR3349_OR3350_b)
+
+##Collate normalised data
+HIF_gene_ID <- fit$genes
+HIF_norm_val <- fit$fitted.values
+write.table(HIF_gene_ID, "HIF_gene_names.csv", sep=",", col.names = NA, quote = FALSE)
+write.table(HIF_norm_val, "HIF_norm_val.csv", sep=",", col.names = NA, quote = FALSE)
+
+##Annotating results
+#Datasets
+mRNA_results_HIF <- read.csv("HIF_meta_values.csv", header = TRUE)
+mart = useMart("ensembl", dataset="celegans_gene_ensembl")
+
+#All mRNAs
+sig_mRNAs <- HIF_seq_identity$GeneID
+genes_placeholder_a <- getBM(filters = "ensembl_gene_id", attributes = c("ensembl_gene_id", "gene_biotype",
+                                                                         "external_gene_name", "description"),
+                             #"goslim_goa_description"),
+                             values = sig_mRNAs, mart = mart)
+#Control_OR3349
+sig_mRNAs <- control_OR3349_a$genes
+genes_placeholder_b <- getBM(filters = "ensembl_gene_id", attributes = c("ensembl_gene_id", "gene_biotype",
+                                                                         "external_gene_name", "description"),
+                             #"goslim_goa_description"),
+                             values = sig_mRNAs, mart = mart)
+#Control_OR3350
+sig_mRNAs <- control_OR3350_a$genes
+genes_placeholder_c <- getBM(filters = "ensembl_gene_id", attributes = c("ensembl_gene_id", "gene_biotype",
+                                                                         "external_gene_name", "description"),
+                             #"goslim_goa_description"),
+                             values = sig_mRNAs, mart = mart)
+#OR3349_OR3350
+sig_mRNAs <- OR3349_OR3350_a$genes
+genes_placeholder_d <- getBM(filters = "ensembl_gene_id", attributes = c("ensembl_gene_id", "gene_biotype",
+                                                                         "external_gene_name", "description"),
+                             #"goslim_goa_description"),
+                             values = sig_mRNAs, mart = mart)
+
+#Merge datasets and annotations
+colnames(genes_placeholder_a) <- c("GeneID", "gene_biotype", "external gene name", "description")
+genes_meta <- merge(mRNA_results_HIF, genes_placeholder_a, by="GeneID", all = TRUE)
+
+colnames(genes_placeholder_b) <- c("genes", "gene_biotype", "external gene name", "description")
+genes_control_OR3349 <- merge(control_OR3349_a, genes_placeholder_b, by="genes", all = TRUE)
+
+colnames(genes_placeholder_c) <- c("genes", "gene_biotype", "external gene name", "description")
+genes_control_OR3350 <- merge(control_OR3350_a, genes_placeholder_c, by="genes", all = TRUE)
+
+colnames(genes_placeholder_d) <- c("genes", "gene_biotype", "external gene name", "description")
+genes_OR3349_OR3350 <- merge(OR3349_OR3350_a, genes_placeholder_d, by="genes", all = TRUE)
+
+
+##Data output
+write.table(genes_meta, "_HIF-seq all genes.csv", sep=",", col.names = NA, quote = FALSE)
+write.table(genes_control_OR3349, "_HIF-seq control vs OR3349.csv", sep=",", col.names = NA, quote = FALSE)
+write.table(genes_control_OR3350, "_HIF-seq control vs OR3350.csv", sep=",", col.names = NA, quote = FALSE)
+write.table(genes_OR3349_OR3350, "_HIF-seq OR3349 vs OR3350.csv", sep=",",col.names = NA,quote = FALSE)
